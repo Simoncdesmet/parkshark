@@ -17,7 +17,7 @@ public class Member {
     private long id;
     private String firstName;
     private String lastName;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
     private String telephoneNumber;
@@ -89,6 +89,20 @@ public class Member {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, telephoneNumber, emailAdress, licencePlate, registrationDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", emailAdress=" + emailAdress +
+                ", licencePlate=" + licencePlate +
+                ", registrationDate=" + registrationDate +
+                '}';
     }
 
     public static Builder newBuilder() {

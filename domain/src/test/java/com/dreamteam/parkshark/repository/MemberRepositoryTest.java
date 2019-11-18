@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
-class CustomerRepositoryTest {
+class MemberRepositoryTest {
     public static final Address ADDRESS = Address.newBuilder()
             .withCity("city")
             .withPostalCode("postalCode")
