@@ -1,13 +1,13 @@
-package com.dreamteam.parkshark.parkshark;
+package api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ParksharkApplication {
+public class ParkSharkApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ParksharkApplication.class, args);
+        SpringApplication.run(ParkSharkApplication.class, args);
     }
 
 }
