@@ -26,13 +26,28 @@
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.dreamteam.parkshark</groupId>
+            <artifactId>domain</artifactId>
+            <version>${parkshark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.dreamteam.parkshark</groupId>
-                <artifactId>domain</artifactId>
-                <version>${parkshark.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.dreamteam.parkshark</groupId>
                 <artifactId>service</artifactId>
@@ -58,18 +73,6 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.200</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring-boot.version}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

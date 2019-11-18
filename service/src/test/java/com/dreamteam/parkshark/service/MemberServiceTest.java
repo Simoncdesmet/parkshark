@@ -1,20 +1,19 @@
-package com.dreamteam.parkshark.repository;
+package com.dreamteam.parkshark.service;
 
 import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.member.Email;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
+import com.dreamteam.parkshark.repository.MemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@AutoConfigureTestDatabase
-class MemberRepositoryTest {
+class MemberServiceTest {
     private static final Address ADDRESS = Address.newBuilder()
             .withCity("city")
             .withPostalCode("postalCode")
@@ -30,21 +29,21 @@ class MemberRepositoryTest {
             .withLicencePlate(new LicencePlate("ABC-123", "Belgium"))
             .build();
 
-    @Autowired
-    private MemberRepository repository;
+    private MemberService service;
+
+    @BeforeEach
+    void setUp() {
+        MemberRepository repository = mock(MemberRepository.class);
+        when(repository.save(MEMBER))
+                .thenReturn(MEMBER);
+        service = new MemberService(repository);
+    }
 
     @Test
-    @DisplayName("a member object remains the same after persisting")
-    void basicFunctionality1() {
-        var persistedMember = repository.save(MEMBER);
+    @DisplayName("when registering a member, the registered member is returned by the service")
+    void basicFunctionality() {
+        var persistedMember = service.register(MEMBER);
         assertEquals(MEMBER, persistedMember);
     }
 
-    @Test
-    @DisplayName("a member object remains the same after persisting and retrieving")
-    void basicFunctionality2() {
-        var persistedMember = repository.save(MEMBER);
-        var retrievedMember = repository.findById(persistedMember.getId());
-        assertEquals(MEMBER, retrievedMember.orElseThrow());
-    }
 }
