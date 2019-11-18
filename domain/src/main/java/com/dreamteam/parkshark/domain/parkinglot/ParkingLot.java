@@ -26,11 +26,11 @@ public class ParkingLot {
     @Column(name = "MAX_CAPACITY")
     private int maxCapacity;
 
-    @ManyToOne()
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "CONTACT_PERSON_ID")
     private ContactPerson contactPerson;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
@@ -50,5 +50,21 @@ public class ParkingLot {
         this.pricePerHour = pricePerHour;
     }
 
+    public String getExternalId() {
+        return externalId;
+    }
 
+    @Override
+    public String toString() {
+        return "ParkingLot{" +
+                "id=" + id +
+                ", externalId='" + externalId + '\'' +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", maxCapacity=" + maxCapacity +
+                ", contactPerson=" + contactPerson +
+                ", address=" + address +
+                ", pricePerHour=" + pricePerHour +
+                '}';
+    }
 }

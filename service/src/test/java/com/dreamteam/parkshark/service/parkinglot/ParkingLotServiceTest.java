@@ -5,16 +5,21 @@ import com.dreamteam.parkshark.domain.parkinglot.Category;
 import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import com.dreamteam.parkshark.repository.parkinglot.ParkingLotRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
+@EntityScan(basePackages = "com.dreamteam.parkshark")
 class ParkingLotServiceTest {
 
     @Autowired
@@ -46,6 +51,14 @@ class ParkingLotServiceTest {
     @Test
     void givenParkingLot_whenSavingParkingLot_ParkingLotIsSaved() {
         parkingLotService.createParkingLot(parkingLot);
-
+        Assertions.assertTrue(parkingLotRepository.findAll()
+                .stream()
+                .map(ParkingLot::getExternalId)
+                .collect(Collectors.toList())
+                .contains(parkingLot.getExternalId()));
+        Assertions.assertEquals(1, parkingLotRepository.findAll()
+                .size());
     }
+
+
 }

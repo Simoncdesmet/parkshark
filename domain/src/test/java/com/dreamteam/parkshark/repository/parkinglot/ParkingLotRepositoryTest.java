@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @AutoConfigureTestDatabase
 class ParkingLotRepositoryTest {
 
-    @Autowired
-    private ParkingLotRepository parkingLotRepository;
-
-    @Test
-    void findAll() {
-        parkingLotRepository.findAll();
-    }
+//    @Autowired
+//    private ParkingLotRepository parkingLotRepository;
+//
+//    @Test
+//    void findAll() {
+//        parkingLotRepository.findAll();
+//    }
 }

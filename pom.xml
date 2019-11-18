@@ -29,6 +29,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.simon.eurder</groupId>
+                <artifactId>domain</artifactId>
+                <type>test-jar</type>
+                <version>${parkshark.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.dreamteam.parkshark</groupId>
                 <artifactId>domain</artifactId>
                 <version>${parkshark.version}</version>

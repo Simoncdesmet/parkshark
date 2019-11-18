@@ -26,7 +26,7 @@ public class ContactPerson {
     @Column(name = "EMAIL")
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
@@ -60,4 +60,16 @@ public class ContactPerson {
     }
 
 
+    @Override
+    public String toString() {
+        return "ContactPerson{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
