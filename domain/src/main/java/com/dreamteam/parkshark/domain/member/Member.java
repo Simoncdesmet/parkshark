@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -31,12 +32,12 @@ public class Member {
     }
 
     private Member(Builder builder) {
-        firstName = builder.firstName;
-        lastName = builder.lastName;
-        address = builder.address;
-        telephoneNumber = builder.telephoneNumber;
-        emailAdress = builder.emailAdress;
-        licencePlate = builder.licencePlate;
+        firstName = requireNonNull(builder.firstName, "first name required");
+        lastName = requireNonNull(builder.lastName, "last name required");
+        address = requireNonNull(builder.address, "address required");
+        telephoneNumber = requireNonNull(builder.telephoneNumber, "telephone number required");
+        emailAdress = requireNonNull(builder.emailAdress, "email address required");
+        licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
     }
 
@@ -143,6 +144,11 @@ public class Member {
 
         public Builder withEmailAdress(Email val) {
             emailAdress = val;
+            return this;
+        }
+
+        public Builder withEmailAdress(String val) {
+            emailAdress = new Email(val);
             return this;
         }
 

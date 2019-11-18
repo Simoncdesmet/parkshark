@@ -1,20 +1,54 @@
 package com.dreamteam.parkshark.api.dtos;
 
-import com.dreamteam.parkshark.domain.Address;
-import com.dreamteam.parkshark.domain.member.Email;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class MemberDto {
     public long id;
     public String lastName;
     public String firstName;
-    public Address address;
+    public AddressDto address;
     public String telephoneNumber;
-    public Email emailAdress;
-    public LicencePlate licencePlate;
+    public String emailAdress;
+    public String licencePlateNumber;
+    public String licencePlateCountry;
     public LocalDate registrationDate;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberDto memberDto = (MemberDto) o;
+        return id == memberDto.id &&
+                Objects.equals(lastName, memberDto.lastName) &&
+                Objects.equals(firstName, memberDto.firstName) &&
+                Objects.equals(address, memberDto.address) &&
+                Objects.equals(telephoneNumber, memberDto.telephoneNumber) &&
+                Objects.equals(emailAdress, memberDto.emailAdress) &&
+                Objects.equals(licencePlateNumber, memberDto.licencePlateNumber) &&
+                Objects.equals(licencePlateCountry, memberDto.licencePlateCountry) &&
+                Objects.equals(registrationDate, memberDto.registrationDate);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, lastName, firstName, address, telephoneNumber, emailAdress, licencePlateNumber, licencePlateCountry, registrationDate);
+    }
+
+    @Override
+    public String toString() {
+        return "MemberDto{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", address=" + address +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", emailAdress='" + emailAdress + '\'' +
+                ", licencePlateNumber='" + licencePlateNumber + '\'' +
+                ", licencePlateCountry='" + licencePlateCountry + '\'' +
+                ", registrationDate=" + registrationDate +
+                '}';
+    }
 }

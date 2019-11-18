@@ -20,7 +20,7 @@ public class Email {
 
     private String validate(String address) {
         if (! PATTERN.matcher(address).matches())
-            throw new IllegalArgumentException("invalid email");
+            throw new IllegalArgumentException("invalid email format");
         return address;
     }
 
