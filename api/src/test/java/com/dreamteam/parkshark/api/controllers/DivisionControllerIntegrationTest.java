@@ -20,6 +20,7 @@ import java.util.Arrays;
 import static com.dreamteam.parkshark.api.controllers.TestObjects.*;
 import static io.restassured.http.ContentType.JSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureTestDatabase
@@ -44,6 +45,7 @@ public class DivisionControllerIntegrationTest {
                 .as(DivisionDto.class);
 
         divisionDto.id = returnedDto.id;
+
         assertEquals(divisionDto, returnedDto);
     }
 
@@ -63,7 +65,8 @@ public class DivisionControllerIntegrationTest {
                 .body()
                 .jsonPath()
                 .getList(".", DivisionDto.class);
-        assertEquals(divisionDto, divisionDtos.get(0));
+        assertTrue(divisionDtos.contains(divisionDto));
+
     }
 
     private Response requestToCreateMember() {
