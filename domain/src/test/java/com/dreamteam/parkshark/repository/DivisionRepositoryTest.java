@@ -35,4 +35,12 @@ public class DivisionRepositoryTest {
         assertEquals(DIVISION, retrievedDivision.orElseThrow());
     }
 
+    @Test
+    @DisplayName("getting all the division return a list where the first element is the persisted one")
+    void getAllDivisions(){
+        divisionRepository.save(DIVISION);
+        var retrievedDivision = divisionRepository.findAll().get(0);
+        assertEquals(DIVISION, retrievedDivision);
+    }
+
 }

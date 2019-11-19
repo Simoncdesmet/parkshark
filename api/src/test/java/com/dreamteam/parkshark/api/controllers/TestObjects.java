@@ -24,6 +24,7 @@ public class TestObjects {
     public static final String DIVISION_ORIGINAL_NAME = "original name";
     public static final String DIRECTOR_NAME = "director name";
     public static final DivisionDto divisionDto = new DivisionDto();
+    public static final DivisionDto divisionDto2 = new DivisionDto();
     public static final CreateDivisionDto createDivisionDto = new CreateDivisionDto();
 
     public static void initialize() {
@@ -54,7 +55,12 @@ public class TestObjects {
         createDivisionDto.directorName = DIRECTOR_NAME;
 
         divisionDto.name = DIVISION_NAME;
+        divisionDto.id = 999;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
+
+        divisionDto2.name = DIVISION_NAME;
+        divisionDto2.originalName = DIVISION_ORIGINAL_NAME;
+        divisionDto2.directorName = DIRECTOR_NAME;
     }
 }

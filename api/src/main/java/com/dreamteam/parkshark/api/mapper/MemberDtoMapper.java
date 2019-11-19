@@ -44,25 +44,4 @@ public class MemberDtoMapper {
     }
 
 
-    private Address toAddress(AddressDto dto) {
-        return Address.newBuilder()
-                .withStreetNumber(dto.streetNumber)
-                .withStreetName(dto.streetName)
-                .withPostalCode(dto.postalCode)
-                .withCity(dto.city)
-                .build();
-    }
-
-    public Division toDivision(CreateDivisionDto dto){
-        return new Division(dto.name, dto.originalName, dto.directorName);
-    }
-
-    public DivisionDto toDto (Division division){
-        DivisionDto divisionDto = new DivisionDto();
-        divisionDto.id = division.getId();
-        divisionDto.name = division.getName();
-        divisionDto.directorName = division.getDirectorName();
-        divisionDto.originalName = division.getOriginalName();
-        return divisionDto;
-    }
 }
