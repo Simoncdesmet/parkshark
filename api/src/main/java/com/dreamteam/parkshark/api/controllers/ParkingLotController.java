@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/parkinglots")
 
@@ -31,4 +33,11 @@ public class ParkingLotController {
         parkingLotService.createParkingLot(parkingLotToCreate);
         return parkingLotDtoMapper.toParkingLotDto(parkingLotToCreate);
     }
+
+    @GetMapping
+    public List<ParkingLotDto> getAll() {
+        return parkingLotDtoMapper.toParkingLotDtos(parkingLotService.getAll());
+    }
+
+
 }

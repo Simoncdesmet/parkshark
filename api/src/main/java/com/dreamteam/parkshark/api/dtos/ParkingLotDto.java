@@ -1,5 +1,7 @@
 package com.dreamteam.parkshark.api.dtos;
 
+import java.util.Objects;
+
 public class ParkingLotDto {
 
     private String externalId;
@@ -71,5 +73,37 @@ public class ParkingLotDto {
 
     public String getExternalId() {
         return externalId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParkingLotDto that = (ParkingLotDto) o;
+        return maxCapacity == that.maxCapacity &&
+                pricePerHour == that.pricePerHour &&
+                Objects.equals(externalId, that.externalId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(contactPersonDto, that.contactPersonDto) &&
+                Objects.equals(addressDto, that.addressDto) &&
+                Objects.equals(category, that.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(externalId, name, maxCapacity, pricePerHour, contactPersonDto, addressDto, category);
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingLotDto{" +
+                "externalId='" + externalId + '\'' +
+                ", name='" + name + '\'' +
+                ", maxCapacity=" + maxCapacity +
+                ", pricePerHour=" + pricePerHour +
+                ", contactPersonDto=" + contactPersonDto +
+                ", addressDto=" + addressDto +
+                ", category='" + category + '\'' +
+                '}';
     }
 }
