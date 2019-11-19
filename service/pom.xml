@@ -11,4 +11,11 @@
 
     <artifactId>service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.dreamteam.parkshark</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

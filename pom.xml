@@ -29,11 +29,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.dreamteam.parkshark</groupId>
-            <artifactId>domain</artifactId>
-            <version>${parkshark.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
@@ -49,6 +44,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.dreamteam.parkshark</groupId>
+                <artifactId>domain</artifactId>
+                <version>${parkshark.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.dreamteam.parkshark</groupId>
                 <artifactId>service</artifactId>
