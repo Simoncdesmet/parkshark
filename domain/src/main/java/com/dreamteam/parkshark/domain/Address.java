@@ -1,13 +1,14 @@
 package com.dreamteam.parkshark.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Address {
-    @Id @GeneratedValue private long id;
+    @Id
+    @SequenceGenerator(name = "ADDRESS_SEQ", sequenceName = "ADDRESS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_SEQ")
+    private long id;
 
     private String city;
     private String postalCode;
