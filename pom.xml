@@ -24,7 +24,6 @@
         <java.version>11</java.version>
         <parkshark.version>0.0.1-SNAPSHOT</parkshark.version>
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
-        <rest-assured.version>4.1.2</rest-assured.version>
     </properties>
 
     <dependencies>
@@ -93,6 +92,11 @@
                 <artifactId>rest-assured-all</artifactId>
                 <version>${rest-assured.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.ojdbc</groupId>
+                <artifactId>ojdbc8</artifactId>
+                <version>${ojdbc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -8,6 +8,9 @@ import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ParkingLotDtoMapper {
 
@@ -71,4 +74,9 @@ public class ParkingLotDtoMapper {
     }
 
 
+    public List<ParkingLotDto> toParkingLotDtos(List<ParkingLot> parkingLots) {
+        return parkingLots.stream()
+                .map(this::toParkingLotDto)
+                .collect(Collectors.toList());
+    }
 }
