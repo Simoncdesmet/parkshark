@@ -48,6 +48,30 @@ public class ContactPerson {
         checkIfEmailIsValid();
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
     public void checkIfAPhoneNumberIsPresent() {
         if (mobilePhoneNumber == null && phoneNumber == null)
             throw new IllegalArgumentException("Please provide at least one phone number.");

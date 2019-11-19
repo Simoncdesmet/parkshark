@@ -50,6 +50,30 @@ public class ParkingLot {
         this.pricePerHour = pricePerHour;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public ContactPerson getContactPerson() {
+        return contactPerson;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public long getPricePerHour() {
+        return pricePerHour;
+    }
+
     public String getExternalId() {
         return externalId;
     }

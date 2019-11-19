@@ -7,6 +7,22 @@ public class AddressDto {
     private String city;
     private String postalCode;
 
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     public AddressDto withStreetName(String streetName) {
         this.streetName = streetName;
         return this;
