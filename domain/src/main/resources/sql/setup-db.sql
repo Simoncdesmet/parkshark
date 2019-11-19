@@ -27,3 +27,13 @@ create table member(
 );
 
 create sequence member_seq start with 1 increment by 1;
+
+create table division(
+    id INT,
+    name varchar(50),
+    original_name varchar(50),
+    director_name varchar(50),
+    constraint division primary key (id)
+);
+create sequence division_seq start with 1 increment by 1;
+
