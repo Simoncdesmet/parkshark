@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 public class Address {
     @Id @GeneratedValue private long id;
+
     private String city;
     private String postalCode;
     private String streetName;
@@ -16,7 +17,7 @@ public class Address {
     public Address() {
     }
 
-    private Address(String city, String postalCode, String streetName, String streetNumber) {
+    public Address(String city, String postalCode, String streetName, String streetNumber) {
         this.city = validate(city);
         this.postalCode = postalCode;
         this.streetName = streetName;
