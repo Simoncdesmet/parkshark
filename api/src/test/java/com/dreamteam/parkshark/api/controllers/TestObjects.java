@@ -1,7 +1,6 @@
 package com.dreamteam.parkshark.api.controllers;
 
 import com.dreamteam.parkshark.api.dtos.*;
-import com.dreamteam.parkshark.domain.division.Division;
 
 import java.time.LocalDate;
 
@@ -24,8 +23,8 @@ public class TestObjects {
     public static final String DIVISION_ORIGINAL_NAME = "original name";
     public static final String DIRECTOR_NAME = "director name";
     public static final DivisionDto divisionDto = new DivisionDto();
-    public static final DivisionDto divisionDto2 = new DivisionDto();
     public static final CreateDivisionDto createDivisionDto = new CreateDivisionDto();
+    public static final int ID = 999;
 
     public static void initialize() {
         addressDto.postalCode = POSTAL_CODE;
@@ -55,12 +54,8 @@ public class TestObjects {
         createDivisionDto.directorName = DIRECTOR_NAME;
 
         divisionDto.name = DIVISION_NAME;
-        divisionDto.id = 999;
+        divisionDto.id = ID;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
-
-        divisionDto2.name = DIVISION_NAME;
-        divisionDto2.originalName = DIVISION_ORIGINAL_NAME;
-        divisionDto2.directorName = DIRECTOR_NAME;
     }
 }

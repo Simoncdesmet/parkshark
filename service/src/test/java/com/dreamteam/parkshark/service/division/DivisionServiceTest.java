@@ -34,7 +34,7 @@ public class DivisionServiceTest {
     }
 
     @Test
-    @DisplayName("getting all the divisions")
+    @DisplayName("getting all the divisions returns a list including the expected division")
     void getAllDivisions(){
         var retrievedDivision = divisionService.getAll().get(0);
         assertEquals(DIVISION, retrievedDivision);

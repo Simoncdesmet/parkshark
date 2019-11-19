@@ -6,8 +6,6 @@ import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
 import org.springframework.stereotype.Component;
 
-import javax.lang.model.element.ModuleElement;
-
 @Component
 public class MemberDtoMapper {
 
