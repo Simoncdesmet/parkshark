@@ -1,15 +1,19 @@
-package api.parkinglot;
-
-import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
+package com.dreamteam.parkshark.api.dtos;
 
 public class ParkingLotDto {
 
+    private String externalId;
     private String name;
     private int maxCapacity;
     private long pricePerHour;
     private ContactPersonDto contactPersonDto;
     private AddressDto addressDto;
     private String category;
+
+    public ParkingLotDto withExternalId(String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
 
     public ParkingLotDto withName(String name) {
         this.name = name;
@@ -63,5 +67,9 @@ public class ParkingLotDto {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getExternalId() {
+        return externalId;
     }
 }

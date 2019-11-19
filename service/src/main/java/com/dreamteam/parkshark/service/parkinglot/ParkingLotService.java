@@ -1,7 +1,7 @@
 package com.dreamteam.parkshark.service.parkinglot;
 
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
-import com.dreamteam.parkshark.repository.parkinglot.ParkingLotRepository;
+import com.dreamteam.parkshark.repository.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

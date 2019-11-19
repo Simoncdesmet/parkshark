@@ -1,5 +1,6 @@
 package com.dreamteam.parkshark.domain.parkinglot;
 
+import com.dreamteam.parkshark.domain.Address;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +12,10 @@ class ParkingLotTest {
 
         Address address = new Address("straat", "nummer", "3000","Leuven");
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-        {
             new ContactPerson("hans",
                     "vanhansegem",
                     null,
-                    null, "simoncdesmet@gmail.com", address);
-        });
+                    null, "simoncdesmet@gmail.com", address));
     }
 
 
@@ -39,12 +38,10 @@ class ParkingLotTest {
 
         Address address = new Address("straat", "nummer","3000", "Leuven");
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-        {
             new ContactPerson("hans",
                     "vanhansegem",
                     "1111",
-                    null, "email", address);
-        });
+                    null, "email", address));
     }
 
 

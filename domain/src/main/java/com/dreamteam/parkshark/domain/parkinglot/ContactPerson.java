@@ -1,5 +1,8 @@
 package com.dreamteam.parkshark.domain.parkinglot;
 
+import com.dreamteam.parkshark.domain.Address;
+import com.dreamteam.parkshark.domain.member.Email;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +10,7 @@ import javax.persistence.*;
 public class ContactPerson {
 
     @Id
-    @SequenceGenerator(name = "contactSeq", sequenceName = "CONTACT_PERSON_SEQ", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "contactSeq", sequenceName = "CONTACT_PERSON_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contactSeq")
     private long id;
 
@@ -34,18 +37,13 @@ public class ContactPerson {
     }
 
     public ContactPerson(String firstName, String lastName, String mobilePhoneNumber, String phoneNumber, String email, Address address) {
+        checkIfAPhoneNumberIsPresent(mobilePhoneNumber, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobilePhoneNumber = mobilePhoneNumber;
         this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.email = new Email(email).getAddress();
         this.address = address;
-        validateInput();
-    }
-
-    private void validateInput() {
-        checkIfAPhoneNumberIsPresent();
-        checkIfEmailIsValid();
     }
 
     public String getFirstName() {
@@ -72,15 +70,9 @@ public class ContactPerson {
         return address;
     }
 
-    public void checkIfAPhoneNumberIsPresent() {
+    private void checkIfAPhoneNumberIsPresent(String mobilePhoneNumber, String phoneNumber) {
         if (mobilePhoneNumber == null && phoneNumber == null)
             throw new IllegalArgumentException("Please provide at least one phone number.");
-    }
-
-    private void checkIfEmailIsValid() throws IllegalArgumentException {
-        if (!email.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?!-)(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
-            throw new IllegalArgumentException("Invalid email format.");
-        }
     }
 
 

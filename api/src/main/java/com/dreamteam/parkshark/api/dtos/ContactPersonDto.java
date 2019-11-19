@@ -1,4 +1,6 @@
-package api.parkinglot;
+package com.dreamteam.parkshark.api.dtos;
+
+import java.util.Objects;
 
 public class ContactPersonDto {
 
@@ -61,5 +63,23 @@ public class ContactPersonDto {
     public ContactPersonDto withPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactPersonDto that = (ContactPersonDto) o;
+        return firstName.equals(that.firstName) &&
+                lastName.equals(that.lastName) &&
+                address.equals(that.address) &&
+                email.equals(that.email) &&
+                Objects.equals(mobilePhoneNumber, that.mobilePhoneNumber) &&
+                Objects.equals(phoneNumber, that.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, address, email, mobilePhoneNumber, phoneNumber);
     }
 }

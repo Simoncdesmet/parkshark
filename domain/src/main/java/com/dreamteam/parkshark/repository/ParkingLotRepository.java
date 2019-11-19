@@ -1,4 +1,4 @@
-package com.dreamteam.parkshark.repository.parkinglot;
+package com.dreamteam.parkshark.repository;
 
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import org.springframework.data.repository.CrudRepository;

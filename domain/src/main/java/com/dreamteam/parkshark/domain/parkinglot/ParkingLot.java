@@ -1,5 +1,7 @@
 package com.dreamteam.parkshark.domain.parkinglot;
 
+import com.dreamteam.parkshark.domain.Address;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -9,7 +11,7 @@ public class ParkingLot {
 
 
     @Id
-    @SequenceGenerator(name = "parkingSeq", sequenceName = "PARKING_LOT_SEQ", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "parkingSeq", sequenceName = "PARKING_LOT_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parkingSeq")
     private long id;
 
