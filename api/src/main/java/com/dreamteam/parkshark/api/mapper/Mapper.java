@@ -61,6 +61,7 @@ public class Mapper {
 
     public DivisionDto toDto (Division division){
         DivisionDto divisionDto = new DivisionDto();
+        divisionDto.id = division.getId();
         divisionDto.name = division.getName();
         divisionDto.directorName = division.getDirectorName();
         divisionDto.originalName = division.getOriginalName();
