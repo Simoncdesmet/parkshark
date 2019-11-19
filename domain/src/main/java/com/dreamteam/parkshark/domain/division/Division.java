@@ -1,4 +1,4 @@
-package domain.division;
+package com.dreamteam.parkshark.domain.division;
 
 import javax.persistence.*;
 
