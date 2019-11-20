@@ -1,12 +1,17 @@
 package com.dreamteam.parkshark.api.controllers;
 
 import com.dreamteam.parkshark.api.dtos.CreateMemberDto;
+import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
 import com.dreamteam.parkshark.api.mapper.MemberDtoMapper;
+import com.dreamteam.parkshark.domain.member.Member;
 import com.dreamteam.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = MemberController.PATH)
@@ -27,4 +32,13 @@ public class MemberController {
         return memberDtoMapper.toDto(memberService.register(memberDtoMapper.toMember(createMemberDto)));
     }
 
+    @GetMapping (produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<SimplifiedMemberDto> getAll(){
+        List<SimplifiedMemberDto> listDto = new ArrayList<>();
+        for (Member member : memberService.getAll()){
+            listDto.add(memberDtoMapper.toGetAllMembersDto(member));
+        }
+        return listDto;
+    }
 }
