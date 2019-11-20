@@ -21,7 +21,7 @@ public class MemberDtoMapper {
         return Member.newBuilder()
                 .withFirstName(dto.firstName)
                 .withLastName(dto.lastName)
-                .withEmailAdress(dto.emailAdress)
+                .withEmailAddress(dto.emailAdress)
                 .withTelephoneNumber(dto.telephoneNumber)
                 .withAddress(addressDtoMapper.toAddress(dto.address))
                 .withLicencePlate(licencePlate)
@@ -34,10 +34,10 @@ public class MemberDtoMapper {
         memberDto.firstName = member.getFirstName();
         memberDto.lastName = member.getLastName();
         memberDto.address = addressDtoMapper.toAddressDto(member.getAddress());
-        memberDto.emailAdress = member.getEmailAdress().getAddress();
+        memberDto.emailAdress = member.getEmailAddress().getAddress();
         memberDto.telephoneNumber = member.getTelephoneNumber();
         memberDto.licencePlateNumber = member.getLicencePlate().getNumber();
-        memberDto.licencePlateCountry = member.getLicencePlate().getCountry();
+        memberDto.licencePlateCountry = member.getLicencePlate().getIssuingCountry();
         memberDto.registrationDate = member.getRegistrationDate();
         return memberDto;
     }

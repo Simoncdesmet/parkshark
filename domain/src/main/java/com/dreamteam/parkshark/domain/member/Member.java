@@ -36,7 +36,7 @@ public class Member {
         lastName = requireNonNull(builder.lastName, "last name required");
         address = requireNonNull(builder.address, "address required");
         telephoneNumber = requireNonNull(builder.telephoneNumber, "telephone number required");
-        emailAddress = requireNonNull(builder.emailAdress, "email address required");
+        emailAddress = requireNonNull(builder.emailAddress, "email address required");
         licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
     }
@@ -61,7 +61,7 @@ public class Member {
         return telephoneNumber;
     }
 
-    public Email getEmailAdress() {
+    public Email getEmailAddress() {
         return emailAddress;
     }
 
@@ -100,7 +100,7 @@ public class Member {
                 ", lastName='" + lastName + '\'' +
                 ", address=" + address +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", emailAdress=" + emailAddress +
+                ", emailAddress=" + emailAddress +
                 ", licencePlate=" + licencePlate +
                 ", registrationDate=" + registrationDate +
                 '}';
@@ -116,7 +116,7 @@ public class Member {
         private String lastName;
         private Address address;
         private String telephoneNumber;
-        private Email emailAdress;
+        private Email emailAddress;
         private LicencePlate licencePlate;
 
         private Builder() {
@@ -142,13 +142,13 @@ public class Member {
             return this;
         }
 
-        public Builder withEmailAdress(Email val) {
-            emailAdress = val;
+        public Builder withEmailAddress(Email val) {
+            emailAddress = val;
             return this;
         }
 
-        public Builder withEmailAdress(String val) {
-            emailAdress = new Email(val);
+        public Builder withEmailAddress(String val) {
+            emailAddress = new Email(val);
             return this;
         }
 
