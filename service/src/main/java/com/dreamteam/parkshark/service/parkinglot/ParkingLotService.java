@@ -26,4 +26,11 @@ public class ParkingLotService {
     public List<ParkingLot> getAll() {
         return parkingLotRepository.findAll();
     }
+
+    public ParkingLot getParkingLotByExternalId(String parkingLotId) {
+
+        return parkingLotRepository.findByExternalId(parkingLotId).orElseThrow(
+                () -> new IllegalArgumentException(("No parking lot found with this id!")));
+
+    }
 }

@@ -22,9 +22,11 @@ public class Member {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
     private String telephoneNumber;
+
     @Embedded
     @AttributeOverride(name = "address", column = @Column(name = "EMAIL_ADDRESS"))
     private Email emailAddress;
+
     @Embedded
     @AttributeOverride(name = "number", column = @Column(name = "LICENCE_PLATE_NUMBER"))
     @AttributeOverride(name = "issuingCountry", column = @Column(name = "LICENCE_PLATE_COUNTRY"))

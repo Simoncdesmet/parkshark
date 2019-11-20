@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import java.util.NoSuchElementException;
+
 @Service
 @Transactional
 public class MemberService {
@@ -20,6 +22,10 @@ public class MemberService {
 
     public Member register(Member member) {
         return repository.save(member);
+    }
+
+    public Member findMemberById(long memberId) {
+         return repository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("No member found with this id!"));
     }
 
     public List<Member> getAll(){

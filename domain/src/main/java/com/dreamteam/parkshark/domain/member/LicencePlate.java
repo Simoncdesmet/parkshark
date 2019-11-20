@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Embeddable
 public class LicencePlate {
+
     @Column(name = "LICENCE_PLATE_NUMBER")
     private String number;
     @Column(name = "LICENCE_PLATE_COUNTRY")

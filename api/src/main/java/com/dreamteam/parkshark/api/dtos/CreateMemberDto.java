@@ -9,7 +9,7 @@ public class CreateMemberDto {
     public String firstName;
     public AddressDto address;
     public String telephoneNumber;
-    public String emailAdress;
+    public String emailAddress;
     public String licencePlateNumber;
     public String licencePlateCountry;
 
@@ -22,14 +22,14 @@ public class CreateMemberDto {
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(address, that.address) &&
                 Objects.equals(telephoneNumber, that.telephoneNumber) &&
-                Objects.equals(emailAdress, that.emailAdress) &&
+                Objects.equals(emailAddress, that.emailAddress) &&
                 Objects.equals(licencePlateNumber, that.licencePlateNumber) &&
                 Objects.equals(licencePlateCountry, that.licencePlateCountry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lastName, firstName, address, telephoneNumber, emailAdress, licencePlateNumber, licencePlateCountry);
+        return Objects.hash(lastName, firstName, address, telephoneNumber, emailAddress, licencePlateNumber, licencePlateCountry);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CreateMemberDto {
                 ", firstName='" + firstName + '\'' +
                 ", address=" + address +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", emailAdress='" + emailAdress + '\'' +
+                ", emailAdress='" + emailAddress + '\'' +
                 ", licencePlateNumber='" + licencePlateNumber + '\'' +
                 ", licencePlateCountry='" + licencePlateCountry + '\'' +
                 '}';
