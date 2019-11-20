@@ -11,6 +11,7 @@ import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import static com.dreamteam.parkshark.api.controllers.TestObjects.*;
 import static io.restassured.http.ContentType.JSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,15 +33,14 @@ class ParkingLotControllerIntegrationTest {
     @Value("${server.port}")
     private int port;
 
-    @Autowired
-    private ParkingLotDtoMapper parkingLotDtoMapper;
+    @BeforeEach
+    void setUp() {
+        TestObjects.initialize();
+    }
 
     @Test
     @DisplayName("when creating a parking lot with all necessary fields, 201 is returned along with the ParkingLotDto")
     void createSuccesfully() {
-        ParkingLot parkingLot = createParkingLotObject();
-        CreateParkingLotDto createParkingLotDto = parkingLotDtoMapper.toCreateParkingLotDto(parkingLot);
-
         var returnedDto = RestAssured
                 .given()
                 .accept(JSON)
@@ -59,7 +60,6 @@ class ParkingLotControllerIntegrationTest {
         assertEquals(createParkingLotDto.getAddressDto(), returnedDto.getAddressDto());
         assertEquals(createParkingLotDto.getContactPersonDto(), returnedDto.getContactPersonDto());
     }
-
 
     @Test
     @DisplayName("when creating a parking lot with no phone number in contact person, 400 is returned along with exception message")
@@ -85,7 +85,7 @@ class ParkingLotControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:insert-parkinglot.sql")
+    @Sql(scripts = {"classpath:insert-address.sql","classpath:insert-parkinglot.sql"})
     @DisplayName("when performing a get request on 'parking lot', you receive a list of parkingLotDtos")
     void getAll() {
         var parkingLotDtos = RestAssured
@@ -101,46 +101,16 @@ class ParkingLotControllerIntegrationTest {
                 .body()
                 .jsonPath()
                 .getList(".", ParkingLotDto.class);
-        assertEquals(getTestParkingLotDto(), parkingLotDtos.get(0));
-        assertTrue(parkingLotDtos.contains(getTestParkingLotDto()));
-    }
-
-    private ParkingLot createParkingLotObject() {
-        Address address = new Address("Leuven", "3000", "Straat", "3");
-        ContactPerson contactPerson = new ContactPerson(
-                "Jos",
-                "Verhoeven",
-                "0487577040",
-                null,
-                "josverhoeven@gmail.com", address);
-        return new ParkingLot(
-                "lot1",
-                Category.UNDERGROUND,
-                1000,
-                contactPerson,
-                address,
-                2000);
+        assertTrue(parkingLotDtos.contains(parkingLotDto));
+//        assertTrue(parkingLotDtos.contains(getTestParkingLotDto()));
     }
 
     private CreateParkingLotDto createParkingLotDtoWithoutPhoneNumber() {
-        AddressDto addressDto = new AddressDto()
-                .withCity("Leuven")
-                .withPostalCode("3000")
-                .withStreetName("Straat")
-                .withStreetNumber("3A");
-        ContactPersonDto contactPersonDto = new ContactPersonDto()
-                .withFirstName("Jos")
-                .withLastName("Verhoeven")
-                .withEmail("simoncdesmet@mgail.com")
-                .withAddress(addressDto);
-
-        return new CreateParkingLotDto()
-                .withName("Name")
-                .withCategory("UNDERGROUND")
-                .withContactPersonDto(contactPersonDto)
-                .withAddressDto(addressDto)
-                .withMaxCapacity(1000)
-                .withPricePerHour(10);
+        return createParkingLotDto
+                .withContactPersonDto(
+                        contactPersonDto
+                                .withMobilePhoneNumber(null)
+                                .withPhoneNumber(null));
     }
 
     private ParkingLotDto getTestParkingLotDto() {
