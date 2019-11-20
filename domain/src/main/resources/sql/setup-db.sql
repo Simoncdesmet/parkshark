@@ -38,25 +38,6 @@ create table division
 );
 create sequence division_seq start with 1 increment by 1;
 
-create table PARKING_LOT
-(
-    ID                NUMBER        not null
-        constraint PARKING_LOT_PK
-            primary key,
-    EXTERNAL_ID       VARCHAR2(264) not null,
-    NAME              VARCHAR2(264) not null,
-    CATEGORY          VARCHAR2(264),
-    MAX_CAPACITY      NUMBER,
-    CONTACT_PERSON_ID NUMBER        not null
-        constraint PARKING_CONTACT_FK
-            references CONTACT_PERSON,
-    ADDRESS_ID        NUMBER        not null
-        constraint PARKING_ADDRESS_FK
-            references ADDRESS,
-    PRICE_PER_HOUR    NUMBER
-);
-create sequence PARKING_LOT_SEQ;
-
 create table CONTACT_PERSON
 (
     ID                  NUMBER        not null
@@ -72,6 +53,28 @@ create table CONTACT_PERSON
             references ADDRESS
 );
 create sequence CONTACT_PERSON_SEQ;
+
+create table PARKING_LOT
+(
+    ID                NUMBER        not null
+        constraint PARKING_LOT_PK
+            primary key,
+    EXTERNAL_ID       VARCHAR2(264) not null,
+    NAME              VARCHAR2(264) not null,
+    CATEGORY          VARCHAR2(264),
+    MAX_CAPACITY      NUMBER,
+    CONTACT_PERSON_ID NUMBER        not null
+        constraint PARKING_CONTACT_FK
+            references CONTACT_PERSON,
+    ADDRESS_ID        NUMBER        not null
+        constraint PARKING_ADDRESS_FK
+            references ADDRESS,
+    PRICE_PER_HOUR    NUMBER,
+    DIVISION_ID       INT           not null
+        constraint FK_DIVISION_ID   foreign key (DIVISION_ID)
+        references DIVISION (id)
+);
+create sequence PARKING_LOT_SEQ;
 
 create table PARKING_SPOT_ALLOCATION
 (
