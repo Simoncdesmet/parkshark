@@ -63,7 +63,7 @@ public class Member {
         return telephoneNumber;
     }
 
-    public Email getEmailAdress() {
+    public Email getEmailAddress() {
         return emailAddress;
     }
 
@@ -102,7 +102,7 @@ public class Member {
                 ", lastName='" + lastName + '\'' +
                 ", address=" + address +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", emailAdress=" + emailAddress +
+                ", emailAddress=" + emailAddress +
                 ", licencePlate=" + licencePlate +
                 ", registrationDate=" + registrationDate +
                 '}';
@@ -153,8 +153,6 @@ public class Member {
             emailAddress = new Email(val);
             return this;
         }
-
-
 
         public Builder withLicencePlate(LicencePlate val) {
             licencePlate = val;

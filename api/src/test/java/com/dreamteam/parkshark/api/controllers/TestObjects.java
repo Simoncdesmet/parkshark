@@ -3,6 +3,7 @@ package com.dreamteam.parkshark.api.controllers;
 import com.dreamteam.parkshark.api.dtos.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class TestObjects {
     public static final String FIRST_NAME = "firstName";
@@ -15,16 +16,25 @@ public class TestObjects {
     public static final String PHONE_NUMBER = "phoneNumber";
     public static final String LICENCE_PLATE_NUMBER = "number";
     public static final String LICENCE_PLATE_COUNTRY = "country";
-    public static final AddressDto addressDto = new AddressDto();
-    public static final MemberDto memberDto = new MemberDto();
-    public static final CreateMemberDto createMemberDto = new CreateMemberDto();
-
+    public static final int ID = 999;
+    public static final String CATEGORY = "UNDERGROUND";
+    public static final String NAME = "name";
+    public static final int CAPACITY = 1000;
+    public static final int PRICE = 10;
     public static final String DIVISION_NAME = "divName";
     public static final String DIVISION_ORIGINAL_NAME = "original name";
     public static final String DIRECTOR_NAME = "director name";
+
+    public static final AddressDto addressDto = new AddressDto();
+    public static final MemberDto memberDto = new MemberDto();
+    public static final CreateMemberDto createMemberDto = new CreateMemberDto();
+    public static final ContactPersonDto contactPersonDto = new ContactPersonDto();
+    public static final CreateParkingLotDto createParkingLotDto = new CreateParkingLotDto();
+    public static final ParkingLotDto parkingLotDto = new ParkingLotDto();
     public static final DivisionDto divisionDto = new DivisionDto();
     public static final CreateDivisionDto createDivisionDto = new CreateDivisionDto();
-    public static final int ID = 999;
+
+    static {initialize();}
 
     public static void initialize() {
         addressDto.postalCode = POSTAL_CODE;
@@ -57,5 +67,29 @@ public class TestObjects {
         divisionDto.id = ID;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
+
+        contactPersonDto
+                .withAddress(addressDto)
+                .withEmail(EMAIL_ADDRESS)
+                .withFirstName(FIRST_NAME)
+                .withLastName(LAST_NAME)
+                .withPhoneNumber(PHONE_NUMBER);
+
+        createParkingLotDto
+                .withAddressDto(addressDto)
+                .withCategory(CATEGORY)
+                .withContactPersonDto(contactPersonDto)
+                .withName(NAME)
+                .withMaxCapacity(CAPACITY)
+                .withPricePerHour(PRICE);
+
+        parkingLotDto
+                .withExternalId(String.valueOf(ID))
+                .withAddressDto(addressDto)
+                .withCategory(CATEGORY)
+                .withContactPersonDto(contactPersonDto)
+                .withName(NAME)
+                .withMaxCapacity(CAPACITY)
+                .withPricePerHour(PRICE);
     }
 }

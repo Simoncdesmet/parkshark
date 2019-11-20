@@ -33,7 +33,7 @@ public class MemberDtoMapper {
         memberDto.firstName = member.getFirstName();
         memberDto.lastName = member.getLastName();
         memberDto.address = addressDtoMapper.toAddressDto(member.getAddress());
-        memberDto.emailAddress = member.getEmailAdress().getAddress();
+        memberDto.emailAddress = member.getEmailAddress().getAddress();
         memberDto.telephoneNumber = member.getTelephoneNumber();
         memberDto.licencePlateNumber = member.getLicencePlate().getNumber();
         memberDto.licencePlateCountry = member.getLicencePlate().getIssuingCountry();

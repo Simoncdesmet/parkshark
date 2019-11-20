@@ -1,36 +1,37 @@
 ALTER SESSION SET CURRENT_SCHEMA = HRSTUDENT11;
 
-create table address(
-  id int,
-  city varchar(50),
-  postal_code varchar(50),
-  street_name varchar(50),
-  street_number varchar(50),
-  constraint address_pk primary key (id)
+create table address
+(
+    id            int,
+    city          varchar(50),
+    postal_code   varchar(50),
+    street_name   varchar(50),
+    street_number varchar(50),
+    constraint address_pk primary key (id)
 );
-
 create sequence address_seq start with 1 increment by 1;
 
-create table member(
-    id INT,
-    first_name varchar(50),
-    last_name varchar(50),
-    address_id int,
-    telephone_number varchar(50),
-    email_address varchar(50),
-    licence_plate_number varchar(50),
+create table member
+(
+    id                    INT,
+    first_name            varchar(50),
+    last_name             varchar(50),
+    address_id            int,
+    telephone_number      varchar(50),
+    email_address         varchar(50),
+    licence_plate_number  varchar(50),
     licence_plate_country varchar(50),
-    registration_date date,
+    registration_date     date,
     constraint member_pk primary key (id),
     constraint member_address_fk foreign key (address_id)
-        references address(id)
+        references address (id)
 );
-
 create sequence member_seq start with 1 increment by 1;
 
-create table division(
-    id INT,
-    name varchar(50),
+create table division
+(
+    id            INT,
+    name          varchar(50),
     original_name varchar(50),
     director_name varchar(50),
     constraint division primary key (id)
@@ -54,8 +55,6 @@ create table PARKING_LOT
             references ADDRESS,
     PRICE_PER_HOUR    NUMBER
 );
-
-
 create sequence PARKING_LOT_SEQ;
 
 create table CONTACT_PERSON
@@ -72,26 +71,22 @@ create table CONTACT_PERSON
         constraint CONTACT_ADDRESS_FK
             references ADDRESS
 );
-
 create sequence CONTACT_PERSON_SEQ;
-
 
 create table PARKING_SPOT_ALLOCATION
 (
-	ID number not null
-		constraint ALLOCATION_pk
-			primary key,
-	EXTERNAL_ID varchar2(264) not null,
-	MEMBER_ID number not null
-		constraint ALLOC_MEMBER__fk
-			references MEMBER,
-	LICENSE_PLATE_NUMBER varchar2(264) not null,
-	START_TIME DATE
+    ID                   number        not null
+        constraint ALLOCATION_pk
+            primary key,
+    EXTERNAL_ID          varchar2(264) not null,
+    MEMBER_ID            number        not null
+        constraint ALLOC_MEMBER__fk
+            references MEMBER,
+    LICENSE_PLATE_NUMBER varchar2(264) not null,
+    START_TIME           DATE
 );
-
-
 create unique index ALLOCATION_EXTERNAL_ID_uindex
-	on PARKING_SPOT_ALLOCATION (EXTERNAL_ID)
+    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID)
 /
-
 create sequence ALLOCATION_SEQ;
+
