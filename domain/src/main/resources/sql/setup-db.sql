@@ -2,7 +2,7 @@ ALTER SESSION SET CURRENT_SCHEMA = HRSTUDENT11;
 
 create table address
 (
-    id            int,
+    id            number,
     city          varchar(50),
     postal_code   varchar(50),
     street_name   varchar(50),
@@ -13,10 +13,10 @@ create sequence address_seq start with 1 increment by 1;
 
 create table member
 (
-    id                    INT,
+    id                    number,
     first_name            varchar(50),
     last_name             varchar(50),
-    address_id            int,
+    address_id            number,
     telephone_number      varchar(50),
     email_address         varchar(50),
     licence_plate_number  varchar(50),
@@ -30,32 +30,13 @@ create sequence member_seq start with 1 increment by 1;
 
 create table division
 (
-    id            INT,
+    id            number,
     name          varchar(50),
     original_name varchar(50),
     director_name varchar(50),
     constraint division primary key (id)
 );
 create sequence division_seq start with 1 increment by 1;
-
-create table PARKING_LOT
-(
-    ID                NUMBER        not null
-        constraint PARKING_LOT_PK
-            primary key,
-    EXTERNAL_ID       VARCHAR2(264) not null,
-    NAME              VARCHAR2(264) not null,
-    CATEGORY          VARCHAR2(264),
-    MAX_CAPACITY      NUMBER,
-    CONTACT_PERSON_ID NUMBER        not null
-        constraint PARKING_CONTACT_FK
-            references CONTACT_PERSON,
-    ADDRESS_ID        NUMBER        not null
-        constraint PARKING_ADDRESS_FK
-            references ADDRESS,
-    PRICE_PER_HOUR    NUMBER
-);
-create sequence PARKING_LOT_SEQ;
 
 create table CONTACT_PERSON
 (
@@ -72,6 +53,25 @@ create table CONTACT_PERSON
             references ADDRESS
 );
 create sequence CONTACT_PERSON_SEQ;
+
+create table PARKING_LOT
+(
+ID                NUMBER        not null
+constraint PARKING_LOT_PK
+primary key,
+EXTERNAL_ID       VARCHAR2(264) not null,
+NAME              VARCHAR2(264) not null,
+CATEGORY          VARCHAR2(264),
+MAX_CAPACITY      NUMBER,
+CONTACT_PERSON_ID NUMBER        not null
+constraint PARKING_CONTACT_FK
+references CONTACT_PERSON,
+ADDRESS_ID        NUMBER        not null
+constraint PARKING_ADDRESS_FK
+references ADDRESS,
+PRICE_PER_HOUR    NUMBER
+);
+create sequence PARKING_LOT_SEQ;
 
 create table PARKING_SPOT_ALLOCATION
 (
