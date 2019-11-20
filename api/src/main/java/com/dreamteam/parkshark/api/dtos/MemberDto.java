@@ -11,7 +11,7 @@ public class MemberDto {
     public String firstName;
     public AddressDto address;
     public String telephoneNumber;
-    public String emailAdress;
+    public String emailAddress;
     public String licencePlateNumber;
     public String licencePlateCountry;
     public LocalDate registrationDate;
@@ -26,7 +26,7 @@ public class MemberDto {
                 Objects.equals(firstName, memberDto.firstName) &&
                 Objects.equals(address, memberDto.address) &&
                 Objects.equals(telephoneNumber, memberDto.telephoneNumber) &&
-                Objects.equals(emailAdress, memberDto.emailAdress) &&
+                Objects.equals(emailAddress, memberDto.emailAddress) &&
                 Objects.equals(licencePlateNumber, memberDto.licencePlateNumber) &&
                 Objects.equals(licencePlateCountry, memberDto.licencePlateCountry) &&
                 Objects.equals(registrationDate, memberDto.registrationDate);
@@ -34,7 +34,7 @@ public class MemberDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, address, telephoneNumber, emailAdress, licencePlateNumber, licencePlateCountry, registrationDate);
+        return Objects.hash(id, lastName, firstName, address, telephoneNumber, emailAddress, licencePlateNumber, licencePlateCountry, registrationDate);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MemberDto {
                 ", firstName='" + firstName + '\'' +
                 ", address=" + address +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", emailAdress='" + emailAdress + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
                 ", licencePlateNumber='" + licencePlateNumber + '\'' +
                 ", licencePlateCountry='" + licencePlateCountry + '\'' +
                 ", registrationDate=" + registrationDate +
