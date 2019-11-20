@@ -47,4 +47,12 @@ class MemberRepositoryTest {
         var retrievedMember = repository.findById(persistedMember.getId());
         assertEquals(MEMBER, retrievedMember.orElseThrow());
     }
+
+    @Test
+    @DisplayName("getting all the members returns a list where the first element is the persisted one")
+    void getAllMembers(){
+        repository.save(MEMBER);
+        var retrievedMember = repository.findAll().get(0);
+        assertEquals(MEMBER, retrievedMember);
+    }
 }
