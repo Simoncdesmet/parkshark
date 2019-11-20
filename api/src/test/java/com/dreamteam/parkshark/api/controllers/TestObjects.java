@@ -3,7 +3,6 @@ package com.dreamteam.parkshark.api.controllers;
 import com.dreamteam.parkshark.api.dtos.*;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class TestObjects {
     public static final String FIRST_NAME = "firstName";
@@ -16,6 +15,7 @@ public class TestObjects {
     public static final String PHONE_NUMBER = "phoneNumber";
     public static final String LICENCE_PLATE_NUMBER = "number";
     public static final String LICENCE_PLATE_COUNTRY = "country";
+
     public static final int ID = 999;
     public static final String CATEGORY = "UNDERGROUND";
     public static final String NAME = "name";
@@ -25,6 +25,7 @@ public class TestObjects {
     public static final String DIVISION_ORIGINAL_NAME = "original name";
     public static final String DIRECTOR_NAME = "director name";
 
+    public static final SimplifiedMemberDto simplifiedMemberDto = new SimplifiedMemberDto();
     public static final AddressDto addressDto = new AddressDto();
     public static final MemberDto memberDto = new MemberDto();
     public static final CreateMemberDto createMemberDto = new CreateMemberDto();
@@ -50,6 +51,14 @@ public class TestObjects {
         memberDto.licencePlateNumber = LICENCE_PLATE_NUMBER;
         memberDto.licencePlateCountry = LICENCE_PLATE_COUNTRY;
         memberDto.registrationDate = LocalDate.now();
+
+        simplifiedMemberDto.firstName = FIRST_NAME;
+        simplifiedMemberDto.id = ID;
+        simplifiedMemberDto.lastName = LAST_NAME;
+        simplifiedMemberDto.telephoneNumber = PHONE_NUMBER;
+        simplifiedMemberDto.emailAdress = EMAIL_ADDRESS;
+        simplifiedMemberDto.licencePlateNumber = LICENCE_PLATE_NUMBER;
+        simplifiedMemberDto.registrationDate = LocalDate.now();
 
         createMemberDto.firstName = FIRST_NAME;
         createMemberDto.lastName = LAST_NAME;

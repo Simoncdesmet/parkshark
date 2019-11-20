@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureTestDatabase
+@Sql(scripts = "classpath:clear-rows.sql")
 class ParkingLotControllerIntegrationTest {
 
     private static final String PATH = "/parkinglots";
@@ -85,7 +86,7 @@ class ParkingLotControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = {"classpath:insert-address.sql","classpath:insert-parkinglot.sql"})
+    @Sql(scripts = {"classpath:insert-address.sql", "classpath:insert-parkinglot.sql"})
     @DisplayName("when performing a get request on 'parking lot', you receive a list of parkingLotDtos")
     void getAll() {
         var parkingLotDtos = RestAssured
