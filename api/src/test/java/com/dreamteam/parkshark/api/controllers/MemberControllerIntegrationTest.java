@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureTestDatabase
+@Sql(scripts = "classpath:clear-rows.sql")
 class MemberControllerIntegrationTest {
     private static final String POST_PATH = MemberController.PATH + "/register";
     @Value("${server.port}") private int port;
@@ -81,7 +82,7 @@ class MemberControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = { "classpath:insert-address.sql ","classpath:insert-member.sql"})
+    @Sql(scripts = { "classpath:insert-address.sql","classpath:insert-member.sql"})
     void getAllDtos(){
         var simplifiedMemberDto = RestAssured
                 .given()
@@ -98,7 +99,7 @@ class MemberControllerIntegrationTest {
                 .getList(".", SimplifiedMemberDto.class);
 
         Assertions.assertThat(simplifiedMemberDto)
-                .contains(TestObjects.SIMPLIFIED_MEMBER_DTO);
+                .contains(TestObjects.simplifiedMemberDto);
 
     }
 

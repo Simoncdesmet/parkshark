@@ -47,7 +47,7 @@ public class MemberDtoMapper {
         simplifiedMemberDto.id = member.getId();
         simplifiedMemberDto.firstName = member.getFirstName();
         simplifiedMemberDto.lastName = member.getLastName();
-        simplifiedMemberDto.emailAdress = member.getEmailAdress().getAddress();
+        simplifiedMemberDto.emailAdress = member.getEmailAddress().getAddress();
         simplifiedMemberDto.telephoneNumber = member.getTelephoneNumber();
         simplifiedMemberDto.licencePlateNumber = member.getLicencePlate().getNumber();
         simplifiedMemberDto.registrationDate = member.getRegistrationDate();

@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureTestDatabase
+@Sql(scripts = "classpath:clear-rows.sql")
 class ParkingLotControllerIntegrationTest {
 
     private static final String PATH = "/parkinglots";
