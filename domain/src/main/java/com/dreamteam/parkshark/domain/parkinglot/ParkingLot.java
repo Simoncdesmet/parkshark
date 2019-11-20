@@ -11,8 +11,8 @@ public class ParkingLot {
 
 
     @Id
-    @SequenceGenerator(name = "parkingSeq", sequenceName = "PARKING_LOT_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parkingSeq")
+    @SequenceGenerator(name = "PARKING_LOT_SEQ", sequenceName = "PARKING_LOT_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARKING_LOT_SEQ")
     private long id;
 
     @Column(name = "EXTERNAL_ID")
