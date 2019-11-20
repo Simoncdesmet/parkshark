@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 @Embeddable
 public class Email {
     private static final Pattern PATTERN = Pattern.compile("^.+@.+\\..+$");
-    @Column
+
+    @Column(name = "EMAIL_ADDRESS")
     private String address;
 
     public Email() {

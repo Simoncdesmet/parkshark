@@ -64,7 +64,7 @@ class MemberControllerIntegrationTest {
     @Test
     @DisplayName("when creating a user with invalid email, 400 is returned along with an informative message")
     void createWithInvalidEmail() {
-        createMemberDto.emailAdress = "invalid";
+        createMemberDto.emailAddress = "invalid";
         var errorMessage = requestToCreateMember()
                 .then()
                 .assertThat()

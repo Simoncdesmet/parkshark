@@ -25,7 +25,7 @@ class MemberServiceTest {
             .withLastName("lastName")
             .withTelephoneNumber("phoneNumber")
             .withAddress(ADDRESS)
-            .withEmailAdress(new Email("email@valid.be"))
+            .withEmailAddress(new Email("email@valid.be"))
             .withLicencePlate(new LicencePlate("ABC-123", "Belgium"))
             .build();
 

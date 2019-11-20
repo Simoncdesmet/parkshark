@@ -22,8 +22,10 @@ public class Member {
     @JoinColumn(name = "address_id")
     private Address address;
     private String telephoneNumber;
+
     @Embedded
-    private Email emailAdress;
+    private Email emailAddress;
+
     @Embedded
     private LicencePlate licencePlate;
     private LocalDate registrationDate;
@@ -36,7 +38,7 @@ public class Member {
         lastName = requireNonNull(builder.lastName, "last name required");
         address = requireNonNull(builder.address, "address required");
         telephoneNumber = requireNonNull(builder.telephoneNumber, "telephone number required");
-        emailAdress = requireNonNull(builder.emailAdress, "email address required");
+        emailAddress = requireNonNull(builder.emailAddress, "email address required");
         licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
     }
@@ -62,7 +64,7 @@ public class Member {
     }
 
     public Email getEmailAdress() {
-        return emailAdress;
+        return emailAddress;
     }
 
     public LicencePlate getLicencePlate() {
@@ -82,14 +84,14 @@ public class Member {
                 Objects.equals(lastName, member.lastName) &&
                 Objects.equals(address, member.address) &&
                 Objects.equals(telephoneNumber, member.telephoneNumber) &&
-                Objects.equals(emailAdress, member.emailAdress) &&
+                Objects.equals(emailAddress, member.emailAddress) &&
                 Objects.equals(licencePlate, member.licencePlate) &&
                 Objects.equals(registrationDate, member.registrationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, address, telephoneNumber, emailAdress, licencePlate, registrationDate);
+        return Objects.hash(firstName, lastName, address, telephoneNumber, emailAddress, licencePlate, registrationDate);
     }
 
     @Override
@@ -100,7 +102,7 @@ public class Member {
                 ", lastName='" + lastName + '\'' +
                 ", address=" + address +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", emailAdress=" + emailAdress +
+                ", emailAdress=" + emailAddress +
                 ", licencePlate=" + licencePlate +
                 ", registrationDate=" + registrationDate +
                 '}';
@@ -116,7 +118,7 @@ public class Member {
         private String lastName;
         private Address address;
         private String telephoneNumber;
-        private Email emailAdress;
+        private Email emailAddress;
         private LicencePlate licencePlate;
 
         private Builder() {
@@ -142,15 +144,17 @@ public class Member {
             return this;
         }
 
-        public Builder withEmailAdress(Email val) {
-            emailAdress = val;
+        public Builder withEmailAddress(Email val) {
+            emailAddress = val;
             return this;
         }
 
-        public Builder withEmailAdress(String val) {
-            emailAdress = new Email(val);
+        public Builder withEmailAddress(String val) {
+            emailAddress = new Email(val);
             return this;
         }
+
+
 
         public Builder withLicencePlate(LicencePlate val) {
             licencePlate = val;

@@ -9,6 +9,9 @@ public class CreateParkingLotDto {
     private AddressDto addressDto;
     private String category;
 
+
+
+
     public CreateParkingLotDto withName(String name) {
         this.name = name;
         return this;

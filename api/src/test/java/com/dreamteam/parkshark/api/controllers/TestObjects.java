@@ -35,7 +35,7 @@ public class TestObjects {
         memberDto.firstName = FIRST_NAME;
         memberDto.lastName = LAST_NAME;
         memberDto.telephoneNumber = PHONE_NUMBER;
-        memberDto.emailAdress = EMAIL_ADDRESS;
+        memberDto.emailAddress = EMAIL_ADDRESS;
         memberDto.address = addressDto;
         memberDto.licencePlateNumber = LICENCE_PLATE_NUMBER;
         memberDto.licencePlateCountry = LICENCE_PLATE_COUNTRY;
@@ -44,7 +44,7 @@ public class TestObjects {
         createMemberDto.firstName = FIRST_NAME;
         createMemberDto.lastName = LAST_NAME;
         createMemberDto.telephoneNumber = PHONE_NUMBER;
-        createMemberDto.emailAdress = EMAIL_ADDRESS;
+        createMemberDto.emailAddress = EMAIL_ADDRESS;
         createMemberDto.address = addressDto;
         createMemberDto.licencePlateNumber = LICENCE_PLATE_NUMBER;
         createMemberDto.licencePlateCountry = LICENCE_PLATE_COUNTRY;
