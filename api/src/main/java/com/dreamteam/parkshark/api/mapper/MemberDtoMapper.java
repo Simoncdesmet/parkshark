@@ -1,6 +1,7 @@
 package com.dreamteam.parkshark.api.mapper;
 
 import com.dreamteam.parkshark.api.dtos.CreateMemberDto;
+import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberDtoMapper {
 
-    private final AddressDtoMapper  addressDtoMapper;
+    private final AddressDtoMapper addressDtoMapper;
 
     public MemberDtoMapper(AddressDtoMapper addressDtoMapper) {
         this.addressDtoMapper = addressDtoMapper;
@@ -39,6 +40,18 @@ public class MemberDtoMapper {
         memberDto.licencePlateCountry = member.getLicencePlate().getCountry();
         memberDto.registrationDate = member.getRegistrationDate();
         return memberDto;
+    }
+
+    public SimplifiedMemberDto toGetAllMembersDto(Member member){
+        SimplifiedMemberDto simplifiedMemberDto = new SimplifiedMemberDto();
+        simplifiedMemberDto.id = member.getId();
+        simplifiedMemberDto.firstName = member.getFirstName();
+        simplifiedMemberDto.lastName = member.getLastName();
+        simplifiedMemberDto.emailAdress = member.getEmailAdress().getAddress();
+        simplifiedMemberDto.telephoneNumber = member.getTelephoneNumber();
+        simplifiedMemberDto.licencePlateNumber = member.getLicencePlate().getNumber();
+        simplifiedMemberDto.registrationDate = member.getRegistrationDate();
+        return simplifiedMemberDto;
     }
 
 

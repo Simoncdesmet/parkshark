@@ -85,7 +85,7 @@ class ParkingLotControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:insert-parkinglot.sql")
+    @Sql(scripts = {"classpath:insert-address.sql", "classpath:insert-parkinglot.sql"})
     @DisplayName("when performing a get request on 'parking lot', you receive a list of parkingLotDtos")
     void getAll() {
         var parkingLotDtos = RestAssured

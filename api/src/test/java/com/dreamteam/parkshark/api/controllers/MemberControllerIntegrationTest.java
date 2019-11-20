@@ -1,15 +1,18 @@
 package com.dreamteam.parkshark.api.controllers;
 
+import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import static com.dreamteam.parkshark.api.controllers.TestObjects.*;
 import static io.restassured.http.ContentType.JSON;
@@ -75,6 +78,28 @@ class MemberControllerIntegrationTest {
                 .as(ErrorMessage.class)
                 .message;
         assertEquals("invalid email format", errorMessage);
+    }
+
+    @Test
+    @Sql(scripts = { "classpath:insert-address.sql ","classpath:insert-member.sql"})
+    void getAllDtos(){
+        var simplifiedMemberDto = RestAssured
+                .given()
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get(MemberController.PATH)
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", SimplifiedMemberDto.class);
+
+        Assertions.assertThat(simplifiedMemberDto)
+                .contains(TestObjects.SIMPLIFIED_MEMBER_DTO);
+
     }
 
     private Response requestToCreateMember() {

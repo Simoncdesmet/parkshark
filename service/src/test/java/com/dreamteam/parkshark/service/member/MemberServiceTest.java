@@ -1,13 +1,16 @@
-package com.dreamteam.parkshark.service;
+package com.dreamteam.parkshark.service.member;
 
 import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.member.Email;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
 import com.dreamteam.parkshark.repository.MemberRepository;
+import com.dreamteam.parkshark.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -36,6 +39,8 @@ class MemberServiceTest {
         MemberRepository repository = mock(MemberRepository.class);
         when(repository.save(MEMBER))
                 .thenReturn(MEMBER);
+        when(repository.findAll())
+                .thenReturn((List.of(MEMBER)));
         service = new MemberService(repository);
     }
 
@@ -44,6 +49,13 @@ class MemberServiceTest {
     void basicFunctionality() {
         var persistedMember = service.register(MEMBER);
         assertEquals(MEMBER, persistedMember);
+    }
+
+    @Test
+    @DisplayName("getting all the members returns a list including the expected member")
+    void getAllMembers(){
+        var retrievedMember = service.getAll().get(0);
+        assertEquals(MEMBER, retrievedMember);
     }
 
 }
