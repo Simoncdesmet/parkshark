@@ -26,7 +26,7 @@ public class ParkingSpotAllocation {
     @Column(name = "LICENSE_PLATE_NUMBER")
     private String licensePlateNumber;
 
-    @Column(name = "PARKINGLOT_ID")
+    @Column(name = "PARKING_LOT_ID")
     private String parkingLotId;
 
     @Column(name = "START_TIME")
