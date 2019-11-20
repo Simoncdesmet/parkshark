@@ -2,10 +2,11 @@ package com.dreamteam.parkshark.domain.allocation;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
+
+import static com.dreamteam.parkshark.domain.allocation.Status.*;
 
 @Entity
 @Table(name = "PARKING_SPOT_ALLOCATION")
@@ -31,6 +32,14 @@ public class ParkingSpotAllocation {
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
+    @Column(name = "STOP_TIME")
+    private LocalDateTime stopTime;
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+
     public ParkingSpotAllocation() {
     }
 
@@ -40,6 +49,7 @@ public class ParkingSpotAllocation {
         this.licensePlateNumber = licensePlateNumber;
         this.parkingLotId = parkingLotId;
         this.startTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        this.status = ACTIVE;
     }
 
     public String getExternalId() {
@@ -60,6 +70,15 @@ public class ParkingSpotAllocation {
 
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void stopAllocation() {
+        status = STOPPED;
+        this.stopTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
 
     @Override
@@ -87,5 +106,9 @@ public class ParkingSpotAllocation {
                 ", parkingLotId='" + parkingLotId + '\'' +
                 ", startTime=" + startTime +
                 '}';
+    }
+
+    public LocalDateTime getStopTime() {
+    return this.stopTime;
     }
 }

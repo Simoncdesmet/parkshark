@@ -24,7 +24,7 @@ private final AllocationDtoMapper allocationDtoMapper;
     @ResponseStatus(HttpStatus.CREATED)
     public ParkingSpotAllocationDto createAllocation(@RequestBody CreateParkingSpotAllocationDto createAllocationDto) {
         ParkingSpotAllocation allocationToCreate = allocationDtoMapper.toAllocation(createAllocationDto);
-        return allocationDtoMapper.toDto(allocationService.createAllocation(allocationToCreate));
+        return allocationDtoMapper.toDto(allocationService.startParkingAllocation(allocationToCreate));
 
     }
 }
