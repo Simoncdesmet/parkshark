@@ -13,11 +13,9 @@ import java.util.stream.Collectors;
 public class ParkingLotDtoMapper {
 
     private final AddressDtoMapper addressDtoMapper;
-    private final DivisionDtoMapper divisionDtoMapper;
 
-    public ParkingLotDtoMapper(AddressDtoMapper addressDtoMapper, DivisionDtoMapper divisionDtoMapper) {
+    public ParkingLotDtoMapper(AddressDtoMapper addressDtoMapper) {
         this.addressDtoMapper = addressDtoMapper;
-        this.divisionDtoMapper = divisionDtoMapper;
     }
 
     public ParkingLot toParkingLot(CreateParkingLotDto createParkingLotDto) {
@@ -28,7 +26,7 @@ public class ParkingLotDtoMapper {
                 toContactPerson(createParkingLotDto.getContactPersonDto()),
                 addressDtoMapper.toAddress(createParkingLotDto.getAddressDto()),
                 createParkingLotDto.getPricePerHour(),
-                divisionDtoMapper.toDivision(createParkingLotDto.getDivisionDto()));
+                createParkingLotDto.getDivisionId());
     }
 
     public CreateParkingLotDto toCreateParkingLotDto(ParkingLot parkingLot) {
@@ -39,7 +37,7 @@ public class ParkingLotDtoMapper {
                 .withContactPersonDto(toContactPersonDto(parkingLot.getContactPerson()))
                 .withAddressDto(addressDtoMapper.toAddressDto(parkingLot.getAddress()))
                 .withPricePerHour(parkingLot.getPricePerHour())
-                .withDivision(divisionDtoMapper.toDto(parkingLot.getDivision()));
+                .withDivision(parkingLot.getDivisionId());
     }
 
     public SingleParkingLotDto toSingleParkingLotDto(ParkingLot parkingLot) {

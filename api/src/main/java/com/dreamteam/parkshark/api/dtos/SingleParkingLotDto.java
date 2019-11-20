@@ -11,7 +11,7 @@ public class SingleParkingLotDto {
     private ContactPersonDto contactPersonDto;
     private AddressDto addressDto;
     private String category;
-    private DivisionDto divisionDto;
+    private long divisionId;
 
     public SingleParkingLotDto withExternalId(String externalId) {
         this.externalId = externalId;
@@ -48,8 +48,8 @@ public class SingleParkingLotDto {
         return this;
     }
 
-    public SingleParkingLotDto withDivisionDto(DivisionDto divisionDto){
-        this.divisionDto = divisionDto;
+    public SingleParkingLotDto withDivisionId(long divisionId){
+        this.divisionId = divisionId;
         return this;
     }
 
@@ -81,7 +81,7 @@ public class SingleParkingLotDto {
         return externalId;
     }
 
-    public DivisionDto getDivisionDto() { return divisionDto; }
+    public long getDivisionDto() { return divisionId; }
 
     @Override
     public boolean equals(Object o) {
@@ -95,12 +95,12 @@ public class SingleParkingLotDto {
                 Objects.equals(contactPersonDto, that.contactPersonDto) &&
                 Objects.equals(addressDto, that.addressDto) &&
                 Objects.equals(category, that.category) &&
-                Objects.equals(divisionDto, that.divisionDto);
+                Objects.equals(divisionId, that.divisionId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(externalId, name, maxCapacity, pricePerHour, contactPersonDto, addressDto, category, divisionDto);
+        return Objects.hash(externalId, name, maxCapacity, pricePerHour, contactPersonDto, addressDto, category, divisionId);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class SingleParkingLotDto {
                 ", contactPersonDto=" + contactPersonDto +
                 ", addressDto=" + addressDto +
                 ", category='" + category + '\'' +
-                ", divisionDto='" + divisionDto + '\'' +
+                ", divisionDto='" + divisionId + '\'' +
                 '}';
     }
 }

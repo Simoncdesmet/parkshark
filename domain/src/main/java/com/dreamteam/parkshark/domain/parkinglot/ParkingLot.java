@@ -40,14 +40,13 @@ public class ParkingLot {
     @Column(name = "PRICE_PER_HOUR")
     private long pricePerHour;
 
-    @ManyToOne
-    @JoinColumn(name = "FK_DIVISION_ID")
-    private Division division;
+    @Column(name = "DIVISION_ID")
+    private long divisionId;
 
     public ParkingLot() {
     }
 
-    public ParkingLot(String name, Category category, int maxCapacity, ContactPerson contactPerson, Address address, long pricePerHour, Division division) {
+    public ParkingLot(String name, Category category, int maxCapacity, ContactPerson contactPerson, Address address, long pricePerHour, long divisionId) {
         this.externalId = UUID.randomUUID().toString();
         this.name = name;
         this.category = category;
@@ -55,7 +54,7 @@ public class ParkingLot {
         this.contactPerson = contactPerson;
         this.address = address;
         this.pricePerHour = pricePerHour;
-        this.division = division;
+        this.divisionId = divisionId;
     }
 
     public String getName() {
@@ -86,8 +85,8 @@ public class ParkingLot {
         return externalId;
     }
 
-    public Division getDivision() {
-        return division;
+    public long getDivisionId() {
+        return divisionId;
     }
 
     @Override
@@ -101,7 +100,7 @@ public class ParkingLot {
                 ", contactPerson=" + contactPerson +
                 ", address=" + address +
                 ", pricePerHour=" + pricePerHour +
-                ", division=" + division +
+                ", division=" + divisionId +
                 '}';
     }
 }

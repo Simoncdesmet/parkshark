@@ -38,7 +38,7 @@ class ParkingLotServiceTest {
                 "0487577040",
                 null,
                 "josverhoeven@gmail.com", address);
-        Division divsion = new Division("SharkyPark", "Blue Parking", "Jos V.");
+        Division divsion = new Division(1,"SharkyPark", "Blue Parking", "Jos V.");
         parkingLot = new ParkingLot(
                 "lot1",
                 Category.UNDERGROUND,
@@ -46,7 +46,7 @@ class ParkingLotServiceTest {
                 contactPerson,
                 address,
                 2000,
-                divsion);
+                1);
     }
 
     @Test

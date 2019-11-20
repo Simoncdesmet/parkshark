@@ -30,7 +30,9 @@ public class TestObjects {
     public static final MemberDto memberDto = new MemberDto();
     public static final CreateMemberDto createMemberDto = new CreateMemberDto();
     public static final ContactPersonDto contactPersonDto = new ContactPersonDto();
+    public static final SimplifiedContactDto simplifiedContactPersonDto = new SimplifiedContactDto();
     public static final CreateParkingLotDto createParkingLotDto = new CreateParkingLotDto();
+    public static final SingleParkingLotDto singleParkingLotDto = new SingleParkingLotDto();
     public static final ParkingLotDto parkingLotDto = new ParkingLotDto();
     public static final DivisionDto divisionDto = new DivisionDto();
     public static final CreateDivisionDto createDivisionDto = new CreateDivisionDto();
@@ -92,7 +94,7 @@ public class TestObjects {
                 .withMaxCapacity(CAPACITY)
                 .withPricePerHour(PRICE);
 
-        parkingLotDto
+        singleParkingLotDto
                 .withExternalId(String.valueOf(ID))
                 .withAddressDto(addressDto)
                 .withCategory(CATEGORY)
@@ -100,5 +102,15 @@ public class TestObjects {
                 .withName(NAME)
                 .withMaxCapacity(CAPACITY)
                 .withPricePerHour(PRICE);
+
+        simplifiedContactPersonDto
+                .withEmail(EMAIL_ADDRESS)
+                .withPhoneNumber(PHONE_NUMBER);
+
+        parkingLotDto
+                .withExternalId("999")
+                .withName("name")
+                .withMaxCapacity(1000)
+                .withContactPersonDto(simplifiedContactPersonDto);
     }
 }
