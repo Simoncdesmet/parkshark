@@ -8,28 +8,29 @@ import java.util.Objects;
 public class LicencePlate {
     @Column
     private String number;
-    private String country;
+    @Column
+    private String issuingCountry;
 
     public LicencePlate() {}
 
-    public LicencePlate(String number, String country) {
+    public LicencePlate(String number, String issuingCountry) {
         this.number = number;
-        this.country = country;
+        this.issuingCountry = issuingCountry;
     }
 
     public String getNumber() {
         return number;
     }
 
-    public String getCountry() {
-        return country;
+    public String getIssuingCountry() {
+        return issuingCountry;
     }
 
     @Override
     public String toString() {
         return "LicencePlate{" +
                 "number='" + number + '\'' +
-                ", country='" + country + '\'' +
+                ", country='" + issuingCountry + '\'' +
                 '}';
     }
 
@@ -39,11 +40,11 @@ public class LicencePlate {
         if (o == null || getClass() != o.getClass()) return false;
         LicencePlate that = (LicencePlate) o;
         return Objects.equals(number, that.number) &&
-                Objects.equals(country, that.country);
+                Objects.equals(issuingCountry, that.issuingCountry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, country);
+        return Objects.hash(number, issuingCountry);
     }
 }
