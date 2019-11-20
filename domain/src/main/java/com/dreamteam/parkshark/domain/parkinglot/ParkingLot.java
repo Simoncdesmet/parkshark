@@ -9,7 +9,6 @@ import java.util.UUID;
 @Table(name = "PARKING_LOT")
 public class ParkingLot {
 
-
     @Id
     @SequenceGenerator(name = "PARKING_LOT_SEQ", sequenceName = "PARKING_LOT_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARKING_LOT_SEQ")

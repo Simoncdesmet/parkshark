@@ -1,4 +1,4 @@
-package com.dreamteam.parkshark.service.member;
+package com.dreamteam.parkshark.service;
 
 import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.member.Email;

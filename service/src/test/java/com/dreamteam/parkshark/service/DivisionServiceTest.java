@@ -1,7 +1,8 @@
-package com.dreamteam.parkshark.service.division;
+package com.dreamteam.parkshark.service;
 
 import com.dreamteam.parkshark.domain.division.Division;
 import com.dreamteam.parkshark.repository.DivisionRepository;
+import com.dreamteam.parkshark.service.DivisionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

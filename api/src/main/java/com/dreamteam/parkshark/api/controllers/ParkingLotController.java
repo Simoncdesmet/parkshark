@@ -4,7 +4,7 @@ import com.dreamteam.parkshark.api.dtos.CreateParkingLotDto;
 import com.dreamteam.parkshark.api.dtos.ParkingLotDto;
 import com.dreamteam.parkshark.api.mapper.ParkingLotDtoMapper;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
-import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
+import com.dreamteam.parkshark.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,10 +1,11 @@
-package com.dreamteam.parkshark.service.parkinglot;
+package com.dreamteam.parkshark.service;
 
 import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.parkinglot.Category;
 import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import com.dreamteam.parkshark.repository.ParkingLotRepository;
+import com.dreamteam.parkshark.service.ParkingLotService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

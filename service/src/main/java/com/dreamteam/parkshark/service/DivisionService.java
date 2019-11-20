@@ -1,4 +1,4 @@
-package com.dreamteam.parkshark.service.division;
+package com.dreamteam.parkshark.service;
 
 import com.dreamteam.parkshark.domain.division.Division;
 import com.dreamteam.parkshark.repository.DivisionRepository;

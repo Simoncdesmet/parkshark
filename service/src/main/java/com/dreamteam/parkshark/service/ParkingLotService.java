@@ -1,4 +1,4 @@
-package com.dreamteam.parkshark.service.parkinglot;
+package com.dreamteam.parkshark.service;
 
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import com.dreamteam.parkshark.repository.ParkingLotRepository;
