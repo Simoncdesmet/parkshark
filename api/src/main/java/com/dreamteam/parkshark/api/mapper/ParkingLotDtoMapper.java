@@ -1,8 +1,6 @@
 package com.dreamteam.parkshark.api.mapper;
 
-import com.dreamteam.parkshark.api.dtos.ContactPersonDto;
-import com.dreamteam.parkshark.api.dtos.CreateParkingLotDto;
-import com.dreamteam.parkshark.api.dtos.ParkingLotDto;
+import com.dreamteam.parkshark.api.dtos.*;
 import com.dreamteam.parkshark.domain.parkinglot.Category;
 import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
@@ -15,9 +13,11 @@ import java.util.stream.Collectors;
 public class ParkingLotDtoMapper {
 
     private final AddressDtoMapper addressDtoMapper;
+    private final DivisionDtoMapper divisionDtoMapper;
 
-    public ParkingLotDtoMapper(AddressDtoMapper addressDtoMapper) {
+    public ParkingLotDtoMapper(AddressDtoMapper addressDtoMapper, DivisionDtoMapper divisionDtoMapper) {
         this.addressDtoMapper = addressDtoMapper;
+        this.divisionDtoMapper = divisionDtoMapper;
     }
 
     public ParkingLot toParkingLot(CreateParkingLotDto createParkingLotDto) {
@@ -27,7 +27,8 @@ public class ParkingLotDtoMapper {
                 createParkingLotDto.getMaxCapacity(),
                 toContactPerson(createParkingLotDto.getContactPersonDto()),
                 addressDtoMapper.toAddress(createParkingLotDto.getAddressDto()),
-                createParkingLotDto.getPricePerHour());
+                createParkingLotDto.getPricePerHour(),
+                divisionDtoMapper.toDivision(createParkingLotDto.getDivisionDto()));
     }
 
     public CreateParkingLotDto toCreateParkingLotDto(ParkingLot parkingLot) {
@@ -37,11 +38,12 @@ public class ParkingLotDtoMapper {
                 .withMaxCapacity(parkingLot.getMaxCapacity())
                 .withContactPersonDto(toContactPersonDto(parkingLot.getContactPerson()))
                 .withAddressDto(addressDtoMapper.toAddressDto(parkingLot.getAddress()))
-                .withPricePerHour(parkingLot.getPricePerHour());
+                .withPricePerHour(parkingLot.getPricePerHour())
+                .withDivision(divisionDtoMapper.toDto(parkingLot.getDivision()));
     }
 
-    public ParkingLotDto toParkingLotDto(ParkingLot parkingLot) {
-        return new ParkingLotDto()
+    public SingleParkingLotDto toSingleParkingLotDto(ParkingLot parkingLot) {
+        return new SingleParkingLotDto()
                 .withExternalId(parkingLot.getExternalId())
                 .withName(parkingLot.getName())
                 .withCategory(parkingLot.getCategory().toString())
@@ -49,6 +51,14 @@ public class ParkingLotDtoMapper {
                 .withContactPersonDto(toContactPersonDto(parkingLot.getContactPerson()))
                 .withAddressDto(addressDtoMapper.toAddressDto(parkingLot.getAddress()))
                 .withPricePerHour(parkingLot.getPricePerHour());
+    }
+
+    public ParkingLotDto toParkingLotDto(ParkingLot parkingLot){
+        return new ParkingLotDto()
+                .withExternalId(parkingLot.getExternalId())
+                .withName(parkingLot.getName())
+                .withMaxCapacity(parkingLot.getMaxCapacity())
+                .withContactPersonDto(toSimplifiedContactDto(parkingLot.getContactPerson()));
     }
 
     private ContactPersonDto toContactPersonDto(ContactPerson contactPerson) {
@@ -59,6 +69,13 @@ public class ParkingLotDtoMapper {
                 .withMobilePhoneNumber(contactPerson.getMobilePhoneNumber())
                 .withPhoneNumber(contactPerson.getPhoneNumber())
                 .withAddress(addressDtoMapper.toAddressDto(contactPerson.getAddress()));
+    }
+
+    private SimplifiedContactDto toSimplifiedContactDto(ContactPerson contactPerson){
+        return new SimplifiedContactDto()
+                .withEmail(contactPerson.getEmail())
+                .withMobilePhoneNumber(contactPerson.getMobilePhoneNumber())
+                .withPhoneNumber(contactPerson.getPhoneNumber());
     }
 
 

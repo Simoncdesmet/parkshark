@@ -28,6 +28,13 @@ public class Division {
         this.directorName = directorName;
     }
 
+    public Division(long id, String name, String originalName, String directorName) {
+        this.id = id;
+        this.name = name;
+        this.originalName = originalName;
+        this.directorName = directorName;
+    }
+
     public long getId() {
         return id;
     }

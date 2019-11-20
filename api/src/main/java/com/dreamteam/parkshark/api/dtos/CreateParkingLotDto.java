@@ -8,6 +8,7 @@ public class CreateParkingLotDto {
     private ContactPersonDto contactPersonDto;
     private AddressDto addressDto;
     private String category;
+    private DivisionDto divisionDto;
 
     public CreateParkingLotDto withName(String name) {
         this.name = name;
@@ -39,6 +40,11 @@ public class CreateParkingLotDto {
         return this;
     }
 
+    public CreateParkingLotDto withDivision(DivisionDto divisionDto){
+        this.divisionDto = divisionDto;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -62,4 +68,6 @@ public class CreateParkingLotDto {
     public String getCategory() {
         return category;
     }
+
+    public DivisionDto getDivisionDto(){ return divisionDto; }
 }

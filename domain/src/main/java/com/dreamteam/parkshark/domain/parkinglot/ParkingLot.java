@@ -40,7 +40,7 @@ public class ParkingLot {
     @Column(name = "PRICE_PER_HOUR")
     private long pricePerHour;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "FK_DIVISION_ID")
     private Division division;
 

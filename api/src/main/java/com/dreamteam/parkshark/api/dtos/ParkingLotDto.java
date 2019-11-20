@@ -3,14 +3,10 @@ package com.dreamteam.parkshark.api.dtos;
 import java.util.Objects;
 
 public class ParkingLotDto {
-
     private String externalId;
     private String name;
     private int maxCapacity;
-    private long pricePerHour;
-    private ContactPersonDto contactPersonDto;
-    private AddressDto addressDto;
-    private String category;
+    private SimplifiedContactDto contactPersonDto;
 
     public ParkingLotDto withExternalId(String externalId) {
         this.externalId = externalId;
@@ -27,23 +23,8 @@ public class ParkingLotDto {
         return this;
     }
 
-    public ParkingLotDto withPricePerHour(long pricePerHour) {
-        this.pricePerHour = pricePerHour;
-        return this;
-    }
-
-    public ParkingLotDto withContactPersonDto(ContactPersonDto contactPersonDto) {
+    public ParkingLotDto withContactPersonDto(SimplifiedContactDto contactPersonDto) {
         this.contactPersonDto = contactPersonDto;
-        return this;
-    }
-
-    public ParkingLotDto withAddressDto(AddressDto addressDto) {
-        this.addressDto = addressDto;
-        return this;
-    }
-
-    public ParkingLotDto withCategory(String category) {
-        this.category = category;
         return this;
     }
 
@@ -55,20 +36,8 @@ public class ParkingLotDto {
         return maxCapacity;
     }
 
-    public long getPricePerHour() {
-        return pricePerHour;
-    }
-
-    public ContactPersonDto getContactPersonDto() {
+    public SimplifiedContactDto getContactPersonDto() {
         return contactPersonDto;
-    }
-
-    public AddressDto getAddressDto() {
-        return addressDto;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getExternalId() {
@@ -81,17 +50,14 @@ public class ParkingLotDto {
         if (o == null || getClass() != o.getClass()) return false;
         ParkingLotDto that = (ParkingLotDto) o;
         return maxCapacity == that.maxCapacity &&
-                pricePerHour == that.pricePerHour &&
                 Objects.equals(externalId, that.externalId) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(contactPersonDto, that.contactPersonDto) &&
-                Objects.equals(addressDto, that.addressDto) &&
-                Objects.equals(category, that.category);
+                Objects.equals(contactPersonDto, that.contactPersonDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(externalId, name, maxCapacity, pricePerHour, contactPersonDto, addressDto, category);
+        return Objects.hash(externalId, name, maxCapacity, contactPersonDto);
     }
 
     @Override
@@ -100,10 +66,7 @@ public class ParkingLotDto {
                 "externalId='" + externalId + '\'' +
                 ", name='" + name + '\'' +
                 ", maxCapacity=" + maxCapacity +
-                ", pricePerHour=" + pricePerHour +
                 ", contactPersonDto=" + contactPersonDto +
-                ", addressDto=" + addressDto +
-                ", category='" + category + '\'' +
                 '}';
     }
 }
