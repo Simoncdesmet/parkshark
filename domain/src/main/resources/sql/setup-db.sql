@@ -21,6 +21,7 @@ create table member(
     licence_plate_number varchar(50),
     licence_plate_country varchar(50),
     registration_date date,
+    division_id INT,
     constraint member_pk primary key (id),
     constraint member_address_fk foreign key (address_id)
         references address(id)
