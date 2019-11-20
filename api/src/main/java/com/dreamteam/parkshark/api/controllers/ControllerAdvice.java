@@ -15,6 +15,7 @@ public class ControllerAdvice {
     protected void handler(RuntimeException exception,
                            HttpServletResponse response)
             throws IOException {
+        exception.printStackTrace();
         logger.warn(exception.getMessage());
         response.sendError(
                 HttpServletResponse.SC_BAD_REQUEST,

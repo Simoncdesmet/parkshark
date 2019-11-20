@@ -20,8 +20,16 @@ public class Division {
     @Column(name = "director_name")
     private String directorName;
 
-    private Division(){}
+    @ManyToOne
+    @JoinColumn(name="PARENT_DIVISION_ID")
+    private Division parentDivision;
 
+    public Division(){}
+
+    public Division(String name, String originalName, String directorName, Division parentDivision) {
+        this(name, originalName, directorName);
+        this.parentDivision = parentDivision;
+    }
     public Division(String name, String originalName, String directorName) {
         this.name = name;
         this.originalName = originalName;
@@ -44,20 +52,25 @@ public class Division {
         return directorName;
     }
 
+    public Division getParentDivision() {
+        return parentDivision;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Division)) return false;
         Division division = (Division) o;
         return id == division.id &&
                 Objects.equals(name, division.name) &&
                 Objects.equals(originalName, division.originalName) &&
-                Objects.equals(directorName, division.directorName);
+                Objects.equals(directorName, division.directorName) &&
+                Objects.equals(parentDivision, division.parentDivision);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, originalName, directorName);
+        return Objects.hash(id, name, originalName, directorName, parentDivision);
     }
 
     @Override
@@ -67,6 +80,7 @@ public class Division {
                 ", name='" + name + '\'' +
                 ", originalName='" + originalName + '\'' +
                 ", directorName='" + directorName + '\'' +
+                ", parentDivision='" + parentDivision + '\'' +
                 '}';
     }
 }

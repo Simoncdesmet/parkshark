@@ -4,4 +4,5 @@ public class CreateDivisionDto {
     public String name;
     public String originalName;
     public String directorName;
+    public String parentDivisionId;
 }

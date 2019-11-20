@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,5 +25,13 @@ public class DivisionService {
 
     public List<Division> getAll() {
         return divisionRepository.findAll();
+    }
+
+    public Optional<Division> getById(String id) {
+        try {
+            return divisionRepository.findById(Long.parseLong(id));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("parent division id is not a number");
+        }
     }
 }
