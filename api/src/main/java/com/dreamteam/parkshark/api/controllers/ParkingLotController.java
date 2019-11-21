@@ -2,6 +2,7 @@ package com.dreamteam.parkshark.api.controllers;
 
 import com.dreamteam.parkshark.api.dtos.CreateParkingLotDto;
 import com.dreamteam.parkshark.api.dtos.ParkingLotDto;
+import com.dreamteam.parkshark.api.dtos.SingleParkingLotDto;
 import com.dreamteam.parkshark.api.mapper.ParkingLotDtoMapper;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
@@ -28,10 +29,10 @@ public class ParkingLotController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
+    public SingleParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
         ParkingLot parkingLotToCreate = parkingLotDtoMapper.toParkingLot(createParkingLotDto);
         parkingLotService.createParkingLot(parkingLotToCreate);
-        return parkingLotDtoMapper.toParkingLotDto(parkingLotToCreate);
+        return parkingLotDtoMapper.toSingleParkingLotDto(parkingLotToCreate);
     }
 
     @GetMapping

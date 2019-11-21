@@ -1,6 +1,7 @@
 package com.dreamteam.parkshark.service.parkinglot;
 
 import com.dreamteam.parkshark.domain.Address;
+import com.dreamteam.parkshark.domain.division.Division;
 import com.dreamteam.parkshark.domain.parkinglot.Category;
 import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
@@ -37,13 +38,15 @@ class ParkingLotServiceTest {
                 "0487577040",
                 null,
                 "josverhoeven@gmail.com", address);
+        Division divsion = new Division(1,"SharkyPark", "Blue Parking", "Jos V.");
         parkingLot = new ParkingLot(
                 "lot1",
                 Category.UNDERGROUND,
                 1000,
                 contactPerson,
                 address,
-                2000);
+                2000,
+                1);
     }
 
     @Test

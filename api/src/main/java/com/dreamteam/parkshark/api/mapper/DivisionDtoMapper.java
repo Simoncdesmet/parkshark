@@ -12,6 +12,10 @@ public class DivisionDtoMapper {
         return new Division(dto.name, dto.originalName, dto.directorName);
     }
 
+    public Division toDivision(DivisionDto dto){
+        return new Division(dto.id, dto.name, dto.originalName, dto.directorName);
+    }
+
     public DivisionDto toDto (Division division){
         DivisionDto divisionDto = new DivisionDto();
         divisionDto.id = division.getId();
