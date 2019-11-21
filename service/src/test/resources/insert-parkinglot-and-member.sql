@@ -23,4 +23,17 @@ values (999,
         'josverhoeven@hotmail.com',
         '1-225-198',
         'Belgium',
-        '1992-01-09','Bronze')
+        '1992-01-09','Bronze');
+
+insert into MEMBER
+(ID, FIRST_NAME, LAST_NAME, ADDRESS_ID, TELEPHONE_NUMBER, EMAIL_ADDRESS, LICENCE_PLATE_NUMBER, LICENCE_PLATE_COUNTRY,
+ REGISTRATION_DATE,MEMBERSHIP_LEVEL)
+values (1000,
+        'Jos',
+        'GoldMember',
+        999,
+        '0481984',
+        'josverhoeven@hotmail.com',
+        '1-225-198',
+        'Belgium',
+        '1992-01-09','Gold');
