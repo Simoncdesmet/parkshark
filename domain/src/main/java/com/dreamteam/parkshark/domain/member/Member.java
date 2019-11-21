@@ -23,6 +23,10 @@ public class Member {
     private Address address;
     private String telephoneNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "MEMBERSHIP_ID")
+    private MemberShip memberShip;
+
     @Embedded
     @AttributeOverride(name = "address", column = @Column(name = "EMAIL_ADDRESS"))
     private Email emailAddress;
