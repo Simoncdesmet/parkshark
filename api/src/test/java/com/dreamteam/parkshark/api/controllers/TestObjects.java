@@ -76,8 +76,8 @@ public class TestObjects {
         createDivisionDto.originalName = DIVISION_ORIGINAL_NAME;
         createDivisionDto.directorName = DIRECTOR_NAME;
 
-        divisionDto.name = DIVISION_NAME;
         divisionDto.id = ID;
+        divisionDto.name = DIVISION_NAME;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
 
