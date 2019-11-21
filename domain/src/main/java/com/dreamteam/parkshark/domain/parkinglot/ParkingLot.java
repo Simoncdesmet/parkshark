@@ -57,6 +57,10 @@ public class ParkingLot {
         this.divisionId = divisionId;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
