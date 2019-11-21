@@ -134,4 +134,5 @@ class ParkingSpotAllocationServiceTest {
         Assertions.assertNotNull(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
                 .getStopTime());
     }
+
 }
