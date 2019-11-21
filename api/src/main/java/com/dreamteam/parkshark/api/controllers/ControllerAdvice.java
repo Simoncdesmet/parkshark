@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class ControllerAdvice {
     private final Logger logger = LoggerFactory.getLogger(ControllerAdvice.class);
 
-    @ExceptionHandler({IllegalArgumentException.class,NullPointerException.class})
+    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class})
     protected void handler(RuntimeException exception,
                            HttpServletResponse response)
             throws IOException {
