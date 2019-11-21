@@ -10,7 +10,7 @@ import static com.dreamteam.parkshark.domain.allocation.Status.*;
 
 @Entity
 @Table(name = "PARKING_SPOT_ALLOCATION")
-public class ParkingSpotAllocation {
+public class ParkingSpotAllocation implements Comparable<ParkingSpotAllocation> {
 
     @Id
     @SequenceGenerator(name = "ALLOCATION_SEQ", sequenceName = "ALLOCATION_SEQ", allocationSize = 1)
@@ -110,5 +110,11 @@ public class ParkingSpotAllocation {
 
     public LocalDateTime getStopTime() {
     return this.stopTime;
+    }
+
+
+    @Override
+    public int compareTo(ParkingSpotAllocation o) {
+        return startTime.compareTo(o.startTime);
     }
 }

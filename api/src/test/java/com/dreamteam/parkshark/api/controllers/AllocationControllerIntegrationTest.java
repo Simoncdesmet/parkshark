@@ -39,7 +39,7 @@ public class AllocationControllerIntegrationTest {
 
     @Test
     @DisplayName("when creating an allocation, 201 is returned along with the dto")
-    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Sql({"classpath:clear-rows.sql","classpath:insert-parkinglot-and-member.sql"})
     void createSuccesfully() {
 
         var returnedDto =
@@ -146,5 +146,75 @@ public class AllocationControllerIntegrationTest {
                         .assertThat()
                         .statusCode(HttpStatus.SC_BAD_REQUEST);
 
+    }
+
+
+    @Test
+    @DisplayName("When calling getAllAllocations without parameters, all allocations are returned")
+    @Sql({"classpath:clear-rows.sql","classpath:insert-parkinglot-and-member.sql","classpath:insert-allocation.sql"})
+    void getAllAllocationsWithoutParams() {
+        var returnedDtos =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .get(PATH)
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.SC_OK)
+                        .extract()
+                        .body()
+                        .jsonPath()
+                        .getList(".", ParkingSpotAllocationDto.class);
+
+        assertEquals(returnedDtos.size(), 9);
+    }
+
+    @Test
+    @DisplayName("When calling getAllAllocations with a number parameters, number allocations are returned")
+    @Sql({"classpath:clear-rows.sql","classpath:insert-parkinglot-and-member.sql","classpath:insert-allocation.sql"})
+    void getAllAllocationsWithNumberParams() {
+        var returnedDtos =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .get(PATH+"?number=5")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.SC_OK)
+                        .extract()
+                        .body()
+                        .jsonPath()
+                        .getList(".", ParkingSpotAllocationDto.class);
+
+        assertEquals(returnedDtos.size(), 5);
+    }
+
+    @Test
+    @DisplayName("When calling getAllAllocations with status as parameters, all allocations with corresponding status are returned")
+    @Sql({"classpath:clear-rows.sql","classpath:insert-parkinglot-and-member.sql","classpath:insert-allocation.sql"})
+    void getAllAllocationsWithStatusParams() {
+        var returnedDtos =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .get(PATH+"?status=active")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.SC_OK)
+                        .extract()
+                        .body()
+                        .jsonPath()
+                        .getList(".", ParkingSpotAllocationDto.class);
+
+        assertEquals(returnedDtos.size(), 4);
     }
 }
