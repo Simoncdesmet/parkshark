@@ -40,6 +40,11 @@ public class ParkingLotController {
         return parkingLotDtoMapper.toParkingLotDtos(parkingLotService.getAll());
     }
 
-
+    @GetMapping("{id}")
+    public ParkingLotDto getById(@PathVariable long id) {
+        var parkingLot = parkingLotService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("parking lot does not exist"));
+        return parkingLotDtoMapper.toParkingLotDto(parkingLot);
+    }
 
 }
