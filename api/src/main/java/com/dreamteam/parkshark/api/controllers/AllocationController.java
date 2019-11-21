@@ -51,4 +51,14 @@ public class AllocationController {
         }
         return finalList;
     }
+
+    @GetMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParkingSpotAllocationDto> getAllAllocationsByMember(@PathVariable("id") String id, @RequestParam(name = "status", required = false) String status){
+        List<ParkingSpotAllocationDto> finalList = new ArrayList<>();
+        for (ParkingSpotAllocation spot : allocationService.getAllocationsForAGivenMember(id, status)){
+            finalList.add(allocationDtoMapper.toDto(spot));
+        }
+        return finalList;
+    }
 }

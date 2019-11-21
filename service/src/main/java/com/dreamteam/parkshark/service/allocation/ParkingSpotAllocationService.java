@@ -6,6 +6,7 @@ import com.dreamteam.parkshark.repository.ParkingSpotAllocationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,5 +89,20 @@ public class ParkingSpotAllocationService {
             return allocations.stream().filter(a -> a.getStatus().equals(Status.valueOf(status.toUpperCase()))).collect(Collectors.toList());
         }
         return allocations;
+    }
+
+    public List<ParkingSpotAllocation> getAllocationsForAGivenMember(String membId, String status){
+        var allParkings = allocationRepository.findAll();
+        List<ParkingSpotAllocation> parkingsForAMember = new ArrayList<>();
+        try{
+            int memberId = Integer.parseInt(membId);
+            parkingsForAMember = allParkings.stream().filter(a -> a.getMemberId() == memberId).collect(Collectors.toList());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if (parkingsForAMember.size() != 0 && status != null){
+            parkingsForAMember = getAllocationsFilteredByStatus(parkingsForAMember, status);
+        }
+        return parkingsForAMember;
     }
 }
