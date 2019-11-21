@@ -41,4 +41,11 @@ public class MemberController {
         }
         return listDto;
     }
+
+    @GetMapping("{id}")
+    public MemberDto getById(@PathVariable long id) {
+        var member =  memberService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("no member with that id"));
+        return memberDtoMapper.toDto(member);
+    }
 }
