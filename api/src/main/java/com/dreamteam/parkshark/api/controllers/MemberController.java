@@ -5,7 +5,7 @@ import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
 import com.dreamteam.parkshark.api.mapper.MemberDtoMapper;
 import com.dreamteam.parkshark.domain.member.Member;
-import com.dreamteam.parkshark.service.MemberService;
+import com.dreamteam.parkshark.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +40,12 @@ public class MemberController {
             listDto.add(memberDtoMapper.toGetAllMembersDto(member));
         }
         return listDto;
+    }
+
+    @GetMapping("{id}")
+    public MemberDto getById(@PathVariable long id) {
+        var member =  memberService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("no member with that id"));
+        return memberDtoMapper.toDto(member);
     }
 }
