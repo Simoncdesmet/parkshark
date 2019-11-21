@@ -2,7 +2,7 @@ package com.dreamteam.parkshark.service.allocation;
 
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
 import com.dreamteam.parkshark.domain.allocation.Status;
-import com.dreamteam.parkshark.service.MemberService;
+import com.dreamteam.parkshark.service.member.MemberService;
 import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

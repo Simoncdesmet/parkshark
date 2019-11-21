@@ -2,7 +2,7 @@ package com.dreamteam.parkshark.service.allocation;
 
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
 import com.dreamteam.parkshark.repository.ParkingSpotAllocationRepository;
-import com.dreamteam.parkshark.service.MemberService;
+import com.dreamteam.parkshark.service.member.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,7 +5,7 @@ import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
 import com.dreamteam.parkshark.api.mapper.MemberDtoMapper;
 import com.dreamteam.parkshark.domain.member.Member;
-import com.dreamteam.parkshark.service.MemberService;
+import com.dreamteam.parkshark.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
