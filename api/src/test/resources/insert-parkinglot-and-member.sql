@@ -5,9 +5,12 @@ insert into CONTACT_PERSON
     (ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ADDRESS_ID)
 values (999, 'Jos', 'Verhoeven', 'simoncdesmet@mgail.com', '0516846513', 999);
 
+insert into division (id, name, original_name, director_name)
+values (999, 'divName', 'original name', 'director name');
+
 insert into PARKING_LOT
-(ID, EXTERNAL_ID, NAME, CATEGORY, MAX_CAPACITY, CONTACT_PERSON_ID, ADDRESS_ID, PRICE_PER_HOUR)
-values (999, 999, 'Name', 'UNDERGROUND', 1, 999, 999, 10);
+(ID, EXTERNAL_ID, NAME, CATEGORY, MAX_CAPACITY, CONTACT_PERSON_ID, ADDRESS_ID, PRICE_PER_HOUR,DIVISION_ID)
+values (999, 999, 'Name', 'UNDERGROUND', 1, 999, 999, 10,999);
 
 insert into MEMBER
 (ID, FIRST_NAME, LAST_NAME, ADDRESS_ID, TELEPHONE_NUMBER, EMAIL_ADDRESS, LICENCE_PLATE_NUMBER, LICENCE_PLATE_COUNTRY,
