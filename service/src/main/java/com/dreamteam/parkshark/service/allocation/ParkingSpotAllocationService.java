@@ -92,15 +92,15 @@ public class ParkingSpotAllocationService {
     }
 
     private boolean isValidStatus(String status) {
-        return status != null
-                && (status.toLowerCase().equals("stopped") || status.toLowerCase().equals("active"));
+        return status.toLowerCase().equals("stopped")
+                || status.toLowerCase().equals("active");
     }
 
     public List<ParkingSpotAllocation> getAllocationsForAGivenMember(String memberId, String status) {
         return allocationRepository.findAll()
                 .stream()
-                .filter(a -> isAllocationOfMember(a, memberId))
-                .filter(a -> isAllocationOfStatus(a, status))
+                .filter(a -> memberId == null || isAllocationOfMember(a, memberId))
+                .filter(a -> status == null || isAllocationOfStatus(a, status))
                 .collect(toList());
     }
 
@@ -110,8 +110,7 @@ public class ParkingSpotAllocationService {
     }
 
     private boolean isAllocationOfMember(ParkingSpotAllocation allocation, String memberId) {
-        return memberId != null
-                && memberId.matches(NUMBER_REGEX)
+        return memberId.matches(NUMBER_REGEX)
                 && allocation.getMemberId() == Integer.parseInt(memberId);
 
     }
