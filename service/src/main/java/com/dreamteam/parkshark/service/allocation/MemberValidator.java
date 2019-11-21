@@ -28,7 +28,7 @@ public class MemberValidator {
 
     private void checkLicensePlateNumber(ParkingSpotAllocation allocation, Member member) {
         if (!member.getLicencePlate().getNumber().equals(allocation.getLicensePlateNumber())) {
-            throw new IllegalArgumentException("Licenseplate number does not match member!");
+            throw new IllegalArgumentException("Licence plate number does not match member!");
         }
     }
 
