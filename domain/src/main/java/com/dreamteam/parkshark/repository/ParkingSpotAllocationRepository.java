@@ -14,4 +14,5 @@ public interface ParkingSpotAllocationRepository extends CrudRepository<ParkingS
     Optional<ParkingSpotAllocation> findByExternalId(String externalId);
 
     List<ParkingSpotAllocation> findByParkingLotId(String parkingLotId);
+
 }

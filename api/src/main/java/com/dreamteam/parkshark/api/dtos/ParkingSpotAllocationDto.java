@@ -1,5 +1,7 @@
 package com.dreamteam.parkshark.api.dtos;
 
+import com.dreamteam.parkshark.domain.allocation.Status;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,7 +13,8 @@ public class ParkingSpotAllocationDto {
     private String licensePlateNumber;
     private String parkingLotId;
     private LocalDateTime startTime;
-
+    private LocalDateTime stopTime;
+    private Status status;
 
     public ParkingSpotAllocationDto withExternalId(String externalId) {
         this.externalId = externalId;
@@ -38,6 +41,16 @@ public class ParkingSpotAllocationDto {
         return this;
     }
 
+    public ParkingSpotAllocationDto withStopTime(LocalDateTime stopTime) {
+        this.stopTime = stopTime;
+        return this;
+    }
+
+    public ParkingSpotAllocationDto withStatus(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public String getExternalId() {
         return externalId;
     }
@@ -56,5 +69,13 @@ public class ParkingSpotAllocationDto {
 
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    public LocalDateTime getStopTime() {
+        return stopTime;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

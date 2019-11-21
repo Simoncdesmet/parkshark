@@ -23,6 +23,8 @@ public class AllocationDtoMapper {
                 .withLicensePlateNumber(allocation.getLicensePlateNumber())
                 .withMemberId(allocation.getMemberId())
                 .withParkingLotId(allocation.getParkingLotId())
-                .withStartTime(allocation.getStartTime());
+                .withStartTime(allocation.getStartTime())
+                .withStopTime(allocation.getStopTime())
+                .withStatus(allocation.getStatus());
     }
 }

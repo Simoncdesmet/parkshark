@@ -3,7 +3,6 @@ package com.dreamteam.parkshark.service.allocation;
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
 import com.dreamteam.parkshark.repository.ParkingSpotAllocationRepository;
 import com.dreamteam.parkshark.service.MemberService;
-import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +21,17 @@ public class ParkingSpotAllocationService {
     }
 
 
-    public ParkingSpotAllocation createAllocation(ParkingSpotAllocation allocation) {
+    public ParkingSpotAllocation startParkingAllocation(ParkingSpotAllocation allocation) {
         validateAllocation(allocation);
         return allocationRepository.save(allocation);
+    }
+
+    public ParkingSpotAllocation stopParkingAllocation(String allocationExternalId, long memberId) {
+        ParkingSpotAllocation allocation = allocationRepository.findByExternalId(allocationExternalId)
+                .orElseThrow(() -> new IllegalArgumentException("There is no allocation with this ID!"));
+        memberValidator.isAllocationOfMember(allocation, memberId);
+        allocation.stopAllocation();
+        return allocation;
     }
 
     private void validateAllocation(ParkingSpotAllocation allocation) {
