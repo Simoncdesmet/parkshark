@@ -20,15 +20,14 @@ public class Division {
     @Column(name = "director_name")
     private String directorName;
 
-    @ManyToOne
-    @JoinColumn(name="PARENT_DIVISION_ID")
-    private Division parentDivision;
+    @Column(name="PARENT_DIVISION_ID")
+    private Long parentDivisionId;
 
     public Division(){}
 
-    public Division(String name, String originalName, String directorName, Division parentDivision) {
+    public Division(String name, String originalName, String directorName, Long parentDivisionId) {
         this(name, originalName, directorName);
-        this.parentDivision = parentDivision;
+        this.parentDivisionId = parentDivisionId;
     }
     public Division(String name, String originalName, String directorName) {
         this.name = name;
@@ -52,8 +51,8 @@ public class Division {
         return directorName;
     }
 
-    public Division getParentDivision() {
-        return parentDivision;
+    public Long getParentDivisionId() {
+        return parentDivisionId;
     }
 
     @Override
@@ -65,12 +64,12 @@ public class Division {
                 Objects.equals(name, division.name) &&
                 Objects.equals(originalName, division.originalName) &&
                 Objects.equals(directorName, division.directorName) &&
-                Objects.equals(parentDivision, division.parentDivision);
+                Objects.equals(parentDivisionId, division.parentDivisionId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, originalName, directorName, parentDivision);
+        return Objects.hash(id, name, originalName, directorName, parentDivisionId);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class Division {
                 ", name='" + name + '\'' +
                 ", originalName='" + originalName + '\'' +
                 ", directorName='" + directorName + '\'' +
-                ", parentDivision='" + parentDivision + '\'' +
+                ", parentDivisionId='" + parentDivisionId + '\'' +
                 '}';
     }
 }

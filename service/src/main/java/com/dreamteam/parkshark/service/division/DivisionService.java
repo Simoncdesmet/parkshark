@@ -27,11 +27,7 @@ public class DivisionService {
         return divisionRepository.findAll();
     }
 
-    public Optional<Division> getById(String id) {
-        try {
-            return divisionRepository.findById(Long.parseLong(id));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("parent division id is not a number");
-        }
+    public Optional<Division> getById(long id) {
+        return divisionRepository.findById(id);
     }
 }

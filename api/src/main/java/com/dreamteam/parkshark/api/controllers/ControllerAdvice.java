@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
@@ -15,8 +16,8 @@ public class ControllerAdvice {
     protected void handler(RuntimeException exception,
                            HttpServletResponse response)
             throws IOException {
-        exception.printStackTrace();
         logger.warn(exception.getMessage());
+        logger.info(Arrays.toString(exception.getStackTrace()));
         response.sendError(
                 HttpServletResponse.SC_BAD_REQUEST,
                 exception.getMessage());

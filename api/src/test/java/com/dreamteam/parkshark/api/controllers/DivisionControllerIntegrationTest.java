@@ -72,7 +72,7 @@ public class DivisionControllerIntegrationTest {
                 .extract()
                 .body()
                 .asString();
-        Assertions.assertThat(errorMessage).contains("parent division id is not a number");
+        Assertions.assertThat(errorMessage).contains("parent division does not exist");
     }
 
     @Test
