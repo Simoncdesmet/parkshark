@@ -1,40 +1,16 @@
 ALTER SESSION SET CURRENT_SCHEMA = HRSTUDENT11;
 
-create table address
+create table ADDRESS
 (
-    id            number,
-    city          varchar(50),
-    postal_code   varchar(50),
-    street_name   varchar(50),
-    street_number varchar(50),
-    constraint address_pk primary key (id)
+    ID            NUMBER not null
+        constraint ADDRESS_PK
+            primary key,
+    CITY          VARCHAR2(50),
+    POSTAL_CODE   VARCHAR2(50),
+    STREET_NAME   VARCHAR2(50),
+    STREET_NUMBER VARCHAR2(50)
 );
 create sequence address_seq start with 1 increment by 1;
-
-create table MEMBERSHIP_LEVEL
-(
-    ID                   NUMBER        not null,
-    NAME                 VARCHAR2(264) not null,
-    MONTHLY_COST         NUMBER(9, 2),
-    ALLOCATION_REDUCTION NUMBER(9, 2),
-    MAX_ALLOCATION_HOURS NUMBER
-)
-/
-
-create unique index MEMBERSHIP_LEVEL_ID_UINDEX
-    on MEMBERSHIP_LEVEL (ID)
-/
-
-create unique index MEMBERSHIP_LEVEL_NAME_UINDEX
-    on MEMBERSHIP_LEVEL (NAME)
-/
-
-alter table MEMBERSHIP_LEVEL
-    add constraint MEMBERSHIP_LEVEL_PK
-        primary key (ID)
-/
-
-
 
 create table MEMBER
 (
@@ -51,25 +27,22 @@ create table MEMBER
     LICENCE_PLATE_NUMBER  VARCHAR2(50),
     LICENCE_PLATE_COUNTRY VARCHAR2(50),
     REGISTRATION_DATE     DATE,
-    MEMBERSHIP_LEVEL_ID   NUMBER
-        constraint MEMBER_LVL_FK
-            references MEMBERSHIP_LEVEL
+    MEMBERSHIP_LEVEL      VARCHAR2(264)
 );
 create sequence member_seq start with 1 increment by 1;
-
-create table division
+create table DIVISION
 (
-    id            number,
-    name          varchar(50),
-    original_name varchar(50),
-    director_name varchar(50),
-    parent_division_id number,
-    constraint division primary key (id),
-    constraint division_parent_fk foreign key (parent_division_id)
-        references division (id)
+    ID                 NUMBER not null
+        constraint DIVISION
+            primary key,
+    NAME               VARCHAR2(50),
+    ORIGINAL_NAME      VARCHAR2(50),
+    DIRECTOR_NAME      VARCHAR2(50),
+    PARENT_DIVISION_ID NUMBER
+        constraint DIVISION_PARENT_FK
+            references DIVISION
 );
 create sequence division_seq start with 1 increment by 1;
-
 create table CONTACT_PERSON
 (
     ID                  NUMBER        not null
@@ -85,7 +58,6 @@ create table CONTACT_PERSON
             references ADDRESS
 );
 create sequence CONTACT_PERSON_SEQ;
-
 create table PARKING_LOT
 (
     ID                NUMBER        not null
@@ -122,13 +94,15 @@ create table PARKING_SPOT_ALLOCATION
     LICENSE_PLATE_NUMBER VARCHAR2(264) not null,
     START_TIME           DATE,
     STOP_TIME            DATE,
-    PARKING_LOT_ID       LONG
-)
-/
+    PARKING_LOT_ID       LONG,
+    STATUS               VARCHAR2(50)  not null
+);
 
 create unique index ALLOCATION_EXTERNAL_ID_UINDEX
-    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID)
-/
+    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID);
+
+create unique index ALLOCATION_EXTERNAL_ID_UINDEX
+    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID);
 
 create sequence ALLOCATION_SEQ;
 
