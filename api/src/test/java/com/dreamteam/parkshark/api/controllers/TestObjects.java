@@ -36,6 +36,7 @@ public class TestObjects {
     public static final ParkingLotDto parkingLotDto = new ParkingLotDto();
     public static final DivisionDto divisionDto = new DivisionDto();
     public static final CreateDivisionDto createDivisionDto = new CreateDivisionDto();
+    public static final int INVALID_ID = 42;
 
     static {initialize();}
 
@@ -45,6 +46,7 @@ public class TestObjects {
         addressDto.streetName = STREET_NAME;
         addressDto.city = CITY;
 
+        memberDto.id = ID;
         memberDto.firstName = FIRST_NAME;
         memberDto.lastName = LAST_NAME;
         memberDto.telephoneNumber = PHONE_NUMBER;
@@ -73,11 +75,13 @@ public class TestObjects {
         createDivisionDto.name = DIVISION_NAME;
         createDivisionDto.originalName = DIVISION_ORIGINAL_NAME;
         createDivisionDto.directorName = DIRECTOR_NAME;
+        createDivisionDto.parentDivisionId = null;
 
-        divisionDto.name = DIVISION_NAME;
         divisionDto.id = ID;
+        divisionDto.name = DIVISION_NAME;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
+        divisionDto.parentDivisionId = null;
 
         contactPersonDto
                 .withAddress(addressDto)
@@ -109,9 +113,9 @@ public class TestObjects {
                 .withPhoneNumber(PHONE_NUMBER);
 
         parkingLotDto
-                .withExternalId("999")
-                .withName("name")
-                .withMaxCapacity(1000)
+                .withExternalId(String.valueOf(ID))
+                .withName(NAME)
+                .withMaxCapacity(CAPACITY)
                 .withContactPersonDto(simplifiedContactPersonDto);
     }
 }

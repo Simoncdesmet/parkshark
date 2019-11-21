@@ -29,9 +29,7 @@ public class AllocationController {
     @ResponseStatus(HttpStatus.CREATED)
     public ParkingSpotAllocationDto startAllocation(@RequestBody CreateParkingSpotAllocationDto createAllocationDto) {
         ParkingSpotAllocation allocationToCreate = allocationDtoMapper.toAllocation(createAllocationDto);
-        return allocationDtoMapper.toDto(allocationService.startParkingAllocation(allocationToCreate));
-
-    }
+        return allocationDtoMapper.toDto(allocationService.startParkingAllocation(allocationToCreate));}
 
     @DeleteMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
