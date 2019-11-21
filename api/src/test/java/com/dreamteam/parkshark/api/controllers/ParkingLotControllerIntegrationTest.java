@@ -52,7 +52,7 @@ class ParkingLotControllerIntegrationTest {
                 .statusCode(HttpStatus.SC_CREATED)
                 .extract()
                 .body()
-                .as(CreateParkingLotDto.class);
+                .as(SingleParkingLotDto.class);
 
         assertEquals(createParkingLotDto.getName(), returnedDto.getName());
         assertEquals(createParkingLotDto.getAddressDto(), returnedDto.getAddressDto());

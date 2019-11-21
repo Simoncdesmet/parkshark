@@ -1,8 +1,9 @@
 package com.dreamteam.parkshark.api.dtos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class SingleParkingLotDto {
+public class SingleParkingLotDto implements Serializable {
 
     private String externalId;
     private String name;
@@ -81,7 +82,7 @@ public class SingleParkingLotDto {
         return externalId;
     }
 
-    public long getDivisionDto() { return divisionId; }
+    public long getDivisionId() { return divisionId; }
 
     @Override
     public boolean equals(Object o) {
@@ -113,7 +114,7 @@ public class SingleParkingLotDto {
                 ", contactPersonDto=" + contactPersonDto +
                 ", addressDto=" + addressDto +
                 ", category='" + category + '\'' +
-                ", divisionDto='" + divisionId + '\'' +
+                ", divisionId='" + divisionId + '\'' +
                 '}';
     }
 }

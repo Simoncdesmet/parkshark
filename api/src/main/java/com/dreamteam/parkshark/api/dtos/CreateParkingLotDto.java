@@ -40,7 +40,7 @@ public class CreateParkingLotDto {
         return this;
     }
 
-    public CreateParkingLotDto withDivision(long divisionId){
+    public CreateParkingLotDto withDivisionId(long divisionId){
         this.divisionId = divisionId;
         return this;
     }

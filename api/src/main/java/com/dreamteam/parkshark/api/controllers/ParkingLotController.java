@@ -29,10 +29,10 @@ public class ParkingLotController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
+    public SingleParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
         ParkingLot parkingLotToCreate = parkingLotDtoMapper.toParkingLot(createParkingLotDto);
         parkingLotService.createParkingLot(parkingLotToCreate);
-        return parkingLotDtoMapper.toCreateParkingLotDto(parkingLotToCreate);
+        return parkingLotDtoMapper.toSingleParkingLotDto(parkingLotToCreate);
     }
 
     @GetMapping

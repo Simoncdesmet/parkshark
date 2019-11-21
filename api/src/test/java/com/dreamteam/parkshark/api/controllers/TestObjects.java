@@ -101,7 +101,8 @@ public class TestObjects {
                 .withContactPersonDto(contactPersonDto)
                 .withName(NAME)
                 .withMaxCapacity(CAPACITY)
-                .withPricePerHour(PRICE);
+                .withPricePerHour(PRICE)
+                .withDivisionId(divisionDto.id);
 
         simplifiedContactPersonDto
                 .withEmail(EMAIL_ADDRESS)

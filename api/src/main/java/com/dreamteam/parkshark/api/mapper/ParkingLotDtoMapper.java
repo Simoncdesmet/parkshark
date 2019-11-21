@@ -29,17 +29,6 @@ public class ParkingLotDtoMapper {
                 createParkingLotDto.getDivisionId());
     }
 
-    public CreateParkingLotDto toCreateParkingLotDto(ParkingLot parkingLot) {
-        return new CreateParkingLotDto()
-                .withName(parkingLot.getName())
-                .withCategory(parkingLot.getCategory().toString())
-                .withMaxCapacity(parkingLot.getMaxCapacity())
-                .withContactPersonDto(toContactPersonDto(parkingLot.getContactPerson()))
-                .withAddressDto(addressDtoMapper.toAddressDto(parkingLot.getAddress()))
-                .withPricePerHour(parkingLot.getPricePerHour())
-                .withDivision(parkingLot.getDivisionId());
-    }
-
     public SingleParkingLotDto toSingleParkingLotDto(ParkingLot parkingLot) {
         return new SingleParkingLotDto()
                 .withExternalId(parkingLot.getExternalId())
@@ -48,7 +37,8 @@ public class ParkingLotDtoMapper {
                 .withMaxCapacity(parkingLot.getMaxCapacity())
                 .withContactPersonDto(toContactPersonDto(parkingLot.getContactPerson()))
                 .withAddressDto(addressDtoMapper.toAddressDto(parkingLot.getAddress()))
-                .withPricePerHour(parkingLot.getPricePerHour());
+                .withPricePerHour(parkingLot.getPricePerHour())
+                .withDivisionId(parkingLot.getDivisionId());
     }
 
     public ParkingLotDto toParkingLotDto(ParkingLot parkingLot){
