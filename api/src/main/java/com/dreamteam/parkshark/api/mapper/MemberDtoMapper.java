@@ -5,6 +5,7 @@ import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
+import com.dreamteam.parkshark.domain.member.MembershipLevel;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,19 +17,22 @@ public class MemberDtoMapper {
         this.addressDtoMapper = addressDtoMapper;
     }
 
-    public Member toMember(CreateMemberDto dto){
+    public Member toMember(CreateMemberDto dto) {
         var licencePlate = new LicencePlate(dto.licencePlateNumber, dto.licencePlateCountry);
-        return Member.newBuilder()
+        var memberBuilder = Member.newBuilder()
                 .withFirstName(dto.firstName)
                 .withLastName(dto.lastName)
                 .withEmailAddress(dto.emailAddress)
                 .withTelephoneNumber(dto.telephoneNumber)
                 .withAddress(addressDtoMapper.toAddress(dto.address))
-                .withLicencePlate(licencePlate)
-                .build();
+                .withLicencePlate(licencePlate);
+        if (dto.memberShipLevel != null) {
+            memberBuilder.withMemberShipLevel(MembershipLevel.valueOf(dto.memberShipLevel));
+        }
+        return memberBuilder.build();
     }
 
-    public MemberDto toDto(Member member){
+    public MemberDto toDto(Member member) {
         MemberDto memberDto = new MemberDto();
         memberDto.id = member.getId();
         memberDto.firstName = member.getFirstName();
@@ -39,10 +43,11 @@ public class MemberDtoMapper {
         memberDto.licencePlateNumber = member.getLicencePlate().getNumber();
         memberDto.licencePlateCountry = member.getLicencePlate().getIssuingCountry();
         memberDto.registrationDate = member.getRegistrationDate();
+        memberDto.memberShipLevel = member.getMemberShipLevel().getName();
         return memberDto;
     }
 
-    public SimplifiedMemberDto toGetAllMembersDto(Member member){
+    public SimplifiedMemberDto toGetAllMembersDto(Member member) {
         SimplifiedMemberDto simplifiedMemberDto = new SimplifiedMemberDto();
         simplifiedMemberDto.id = member.getId();
         simplifiedMemberDto.firstName = member.getFirstName();

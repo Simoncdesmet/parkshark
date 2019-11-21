@@ -1,6 +1,8 @@
 package com.dreamteam.parkshark.api.dtos;
 
 import com.dreamteam.parkshark.domain.member.LicencePlate;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Objects;
 
@@ -12,6 +14,8 @@ public class CreateMemberDto {
     public String emailAddress;
     public String licencePlateNumber;
     public String licencePlateCountry;
+
+    public String memberShipLevel;
 
     @Override
     public boolean equals(Object o) {
@@ -39,9 +43,10 @@ public class CreateMemberDto {
                 ", firstName='" + firstName + '\'' +
                 ", address=" + address +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", emailAdress='" + emailAddress + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
                 ", licencePlateNumber='" + licencePlateNumber + '\'' +
                 ", licencePlateCountry='" + licencePlateCountry + '\'' +
+                ", memberShipLevel='" + memberShipLevel + '\'' +
                 '}';
     }
 }

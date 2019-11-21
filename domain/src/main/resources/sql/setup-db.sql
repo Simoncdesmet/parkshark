@@ -11,20 +11,49 @@ create table address
 );
 create sequence address_seq start with 1 increment by 1;
 
-create table member
+create table MEMBERSHIP_LEVEL
 (
-    id                    number,
-    first_name            varchar(50),
-    last_name             varchar(50),
-    address_id            number,
-    telephone_number      varchar(50),
-    email_address         varchar(50),
-    licence_plate_number  varchar(50),
-    licence_plate_country varchar(50),
-    registration_date     date,
-    constraint member_pk primary key (id),
-    constraint member_address_fk foreign key (address_id)
-        references address (id)
+    ID                   NUMBER        not null,
+    NAME                 VARCHAR2(264) not null,
+    MONTHLY_COST         NUMBER(9, 2),
+    ALLOCATION_REDUCTION NUMBER(9, 2),
+    MAX_ALLOCATION_HOURS NUMBER
+)
+/
+
+create unique index MEMBERSHIP_LEVEL_ID_UINDEX
+    on MEMBERSHIP_LEVEL (ID)
+/
+
+create unique index MEMBERSHIP_LEVEL_NAME_UINDEX
+    on MEMBERSHIP_LEVEL (NAME)
+/
+
+alter table MEMBERSHIP_LEVEL
+    add constraint MEMBERSHIP_LEVEL_PK
+        primary key (ID)
+/
+
+
+
+create table MEMBER
+(
+    ID                    NUMBER not null
+        constraint MEMBER_PK
+            primary key,
+    FIRST_NAME            VARCHAR2(50),
+    LAST_NAME             VARCHAR2(50),
+    ADDRESS_ID            NUMBER
+        constraint MEMBER_ADDRESS_FK
+            references ADDRESS,
+    TELEPHONE_NUMBER      VARCHAR2(50),
+    EMAIL_ADDRESS         VARCHAR2(50),
+    LICENCE_PLATE_NUMBER  VARCHAR2(50),
+    LICENCE_PLATE_COUNTRY VARCHAR2(50),
+    REGISTRATION_DATE     DATE,
+    MEMBERSHIP_LEVEL_ID   NUMBER
+        constraint MEMBER_LVL_FK
+            references MEMBERSHIP_LEVEL
 );
 create sequence member_seq start with 1 increment by 1;
 
@@ -59,39 +88,48 @@ create sequence CONTACT_PERSON_SEQ;
 
 create table PARKING_LOT
 (
-ID                NUMBER        not null
-constraint PARKING_LOT_PK
-primary key,
-EXTERNAL_ID       VARCHAR2(264) not null,
-NAME              VARCHAR2(264) not null,
-CATEGORY          VARCHAR2(264),
-MAX_CAPACITY      NUMBER,
-CONTACT_PERSON_ID NUMBER        not null
-constraint PARKING_CONTACT_FK
-references CONTACT_PERSON,
-ADDRESS_ID        NUMBER        not null
-constraint PARKING_ADDRESS_FK
-references ADDRESS,
-PRICE_PER_HOUR    NUMBER,
-DIVISION_ID       NUMBER        not null
-constraint PARKING_DIVISION_FK
-references DIVISION
+    ID                NUMBER        not null
+        constraint PARKING_LOT_PK
+            primary key,
+    EXTERNAL_ID       VARCHAR2(264) not null,
+    NAME              VARCHAR2(264) not null,
+    CATEGORY          VARCHAR2(264),
+    MAX_CAPACITY      NUMBER,
+    CONTACT_PERSON_ID NUMBER        not null
+        constraint PARKING_CONTACT_FK
+            references CONTACT_PERSON,
+    ADDRESS_ID        NUMBER        not null
+        constraint PARKING_ADDRESS_FK
+            references ADDRESS,
+    PRICE_PER_HOUR    NUMBER,
+    DIVISION_ID       NUMBER
+        constraint PARK_LOT_DIV_FK
+            references DIVISION
 );
 create sequence PARKING_LOT_SEQ;
 
 create table PARKING_SPOT_ALLOCATION
 (
-    ID                   number        not null
-        constraint ALLOCATION_pk
-            primary key,
-    EXTERNAL_ID          varchar2(264) not null,
-    MEMBER_ID            number        not null
-        constraint ALLOC_MEMBER__fk
+    ID                   NUMBER        not null
+        constraint ALLOCATION_PK
+            primary key
+        constraint ALLOC_LOT_FK
+            references PARKING_LOT,
+    EXTERNAL_ID          VARCHAR2(264) not null,
+    MEMBER_ID            NUMBER        not null
+        constraint ALLOC_MEMBER__FK
             references MEMBER,
-    LICENSE_PLATE_NUMBER varchar2(264) not null,
-    START_TIME           DATE
-);
-create unique index ALLOCATION_EXTERNAL_ID_uindex
-    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID);
+    LICENSE_PLATE_NUMBER VARCHAR2(264) not null,
+    START_TIME           DATE,
+    STOP_TIME            DATE,
+    PARKING_LOT_ID       LONG
+)
+/
+
+create unique index ALLOCATION_EXTERNAL_ID_UINDEX
+    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID)
+/
+
 create sequence ALLOCATION_SEQ;
+
 

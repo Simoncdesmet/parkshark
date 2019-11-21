@@ -13,6 +13,7 @@ public class MemberDto {
     public String licencePlateNumber;
     public String licencePlateCountry;
     public LocalDate registrationDate;
+    public String memberShipLevel;
 
     @Override
     public boolean equals(Object o) {

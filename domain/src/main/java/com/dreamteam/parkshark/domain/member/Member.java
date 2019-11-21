@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static com.dreamteam.parkshark.domain.member.MembershipLevel.*;
 import static java.util.Objects.requireNonNull;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -22,6 +23,10 @@ public class Member {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
     private String telephoneNumber;
+
+    @Column(name = "MEMBERSHIP_LEVEL")
+    @Enumerated(EnumType.STRING)
+    private MembershipLevel memberShipLevel = Bronze;
 
     @Embedded
     @AttributeOverride(name = "address", column = @Column(name = "EMAIL_ADDRESS"))
@@ -44,6 +49,7 @@ public class Member {
         emailAddress = requireNonNull(builder.emailAddress, "email address required");
         licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
+        if (builder.membershipLevel != null) memberShipLevel = builder.membershipLevel;
     }
 
     public long getId() {
@@ -76,6 +82,10 @@ public class Member {
 
     public LocalDate getRegistrationDate() {
         return registrationDate;
+    }
+
+    public MembershipLevel getMemberShipLevel() {
+        return memberShipLevel;
     }
 
     @Override
@@ -123,6 +133,7 @@ public class Member {
         private String telephoneNumber;
         private Email emailAddress;
         private LicencePlate licencePlate;
+        private MembershipLevel membershipLevel;
 
         private Builder() {
         }
@@ -159,6 +170,11 @@ public class Member {
 
         public Builder withLicencePlate(LicencePlate val) {
             licencePlate = val;
+            return this;
+        }
+
+        public Builder withMemberShipLevel(MembershipLevel val) {
+            membershipLevel = val;
             return this;
         }
 

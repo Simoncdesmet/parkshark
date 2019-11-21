@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ class ParkingLotServiceTest {
                 1);
     }
 
+    @Sql(scripts = "classpath:delete-rows.sql")
     @Test
     void givenParkingLot_whenSavingParkingLot_ParkingLotIsSaved() {
         parkingLotService.createParkingLot(parkingLot);
