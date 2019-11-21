@@ -4,26 +4,21 @@ import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.member.Email;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
-import com.dreamteam.parkshark.service.Application;
+import com.dreamteam.parkshark.repository.MemberRepository;
 import com.dreamteam.parkshark.service.MemberService;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import static com.dreamteam.parkshark.domain.member.MembershipLevel.*;
+import java.util.List;
 
-@SpringBootTest(classes = Application.class)
-@AutoConfigureTestDatabase
-@EntityScan(basePackages = "com.dreamteam.parkshark")
-public class MemberServiceUnitTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-    @Autowired
-    private MemberService memberService;
 
+class MemberServiceUnitTest {
     private static final Address ADDRESS = Address.newBuilder()
             .withCity("city")
             .withPostalCode("postalCode")
@@ -39,45 +34,30 @@ public class MemberServiceUnitTest {
             .withLicencePlate(new LicencePlate("ABC-123", "Belgium"))
             .build();
 
-    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
-    @Test
-    void whenGettingAMemberWithLevelBronze_membershipLevelContainsRightValues() {
+    private MemberService service;
 
-        Member foundMember = memberService.findMemberById(999);
-        Assertions.assertEquals(foundMember.getMemberShipLevel().getMonthlyCost(), 0);
-        Assertions.assertEquals(foundMember.getMemberShipLevel().getAllocationReduction(), 0.0);
-        Assertions.assertEquals(foundMember.getMemberShipLevel().getMaxAllocationHours(), 4.0);
+    @BeforeEach
+    void setUp() {
+        MemberRepository repository = mock(MemberRepository.class);
+        when(repository.save(MEMBER))
+                .thenReturn(MEMBER);
+        when(repository.findAll())
+                .thenReturn((List.of(MEMBER)));
+        service = new MemberService(repository);
     }
 
-
     @Test
-    void whenCreatingAMemberWithoutLevel_memberHasMembershipBronze() {
-        Member createdMember = memberService.register(MEMBER);
-        Assertions.assertEquals(createdMember.getMemberShipLevel().getMonthlyCost(), 0);
-        Assertions.assertEquals(createdMember.getMemberShipLevel().getAllocationReduction(), 0.0);
-        Assertions.assertEquals(createdMember.getMemberShipLevel().getMaxAllocationHours(), 4.0);
+    @DisplayName("when registering a member, the registered member is returned by the service")
+    void basicFunctionality() {
+        var persistedMember = service.register(MEMBER);
+        assertEquals(MEMBER, persistedMember);
     }
 
-    @Sql(scripts = "classpath:delete-rows.sql")
     @Test
-    void whenCreatingAMemberWithLevelSilver_memberHasMembershipSilver() {
-        Address address = Address.newBuilder()
-                .withCity("city")
-                .withPostalCode("postalCode")
-                .withStreetName("streetName")
-                .withStreetNumber("streetNumber")
-                .build();
-        Member createdMember = memberService.register(Member.newBuilder()
-                .withFirstName("firstName")
-                .withLastName("lastName")
-                .withTelephoneNumber("phoneNumber")
-                .withAddress(address)
-                .withEmailAddress(new Email("email@valid.be"))
-                .withLicencePlate(new LicencePlate("ABC-123", "Belgium"))
-                .withMemberShipLevel(Silver)
-                .build());
-        Assertions.assertEquals(createdMember.getMemberShipLevel().getMonthlyCost(), 10);
-        Assertions.assertEquals(createdMember.getMemberShipLevel().getAllocationReduction(), 0.2);
-        Assertions.assertEquals(createdMember.getMemberShipLevel().getMaxAllocationHours(), 6.0);
+    @DisplayName("getting all the members returns a list including the expected member")
+    void getAllMembers(){
+        var retrievedMember = service.getAll().get(0);
+        assertEquals(MEMBER, retrievedMember);
     }
+
 }
