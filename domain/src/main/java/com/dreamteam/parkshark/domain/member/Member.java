@@ -26,7 +26,7 @@ public class Member {
 
     @Column(name = "MEMBERSHIP_LEVEL")
     @Enumerated(EnumType.STRING)
-    private MembershipLevel memberShipLevel;
+    private MembershipLevel memberShipLevel = Bronze;
 
     @Embedded
     @AttributeOverride(name = "address", column = @Column(name = "EMAIL_ADDRESS"))
@@ -49,8 +49,7 @@ public class Member {
         emailAddress = requireNonNull(builder.emailAddress, "email address required");
         licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
-        memberShipLevel = builder.membershipLevel;
-        if (memberShipLevel == null) memberShipLevel = Bronze;
+        if (builder.membershipLevel != null) memberShipLevel = builder.membershipLevel;
     }
 
     public long getId() {

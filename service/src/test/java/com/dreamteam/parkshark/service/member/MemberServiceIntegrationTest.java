@@ -4,8 +4,6 @@ import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.member.Email;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
-import com.dreamteam.parkshark.service.Application;
-import com.dreamteam.parkshark.service.MemberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +14,10 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static com.dreamteam.parkshark.domain.member.MembershipLevel.*;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 @AutoConfigureTestDatabase
 @EntityScan(basePackages = "com.dreamteam.parkshark")
-public class MemberServiceTestTemp {
+public class MemberServiceIntegrationTest {
 
     @Autowired
     private MemberService memberService;
