@@ -31,4 +31,10 @@ public class MemberValidator {
             throw new IllegalArgumentException("Licenseplate number does not match member!");
         }
     }
+
+    public void isAllocationOfMember(ParkingSpotAllocation allocation, long memberId) {
+        if (memberId != allocation.getMemberId()) {
+            throw new IllegalArgumentException("You are not authorized to stop this allocation!");
+        }
+    }
 }

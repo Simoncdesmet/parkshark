@@ -1,6 +1,7 @@
 package com.dreamteam.parkshark.service.allocation;
 
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
+import com.dreamteam.parkshark.domain.allocation.Status;
 import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
 import com.dreamteam.parkshark.repository.ParkingSpotAllocationRepository;
 import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
@@ -30,9 +31,13 @@ public class ParkingLotValidator {
     }
 
     private void checkParkingLotCapacity(ParkingLot parkingLot) {
-        if (parkingLot.getMaxCapacity() <= allocationRepository.findByParkingLotId(parkingLot.getExternalId())
-                .size()) {
+        if (parkingLot.getMaxCapacity() <= getNumberOfOccupiedSpotsInLot(parkingLot)) {
             throw new IllegalArgumentException("Parking lot is full!");
         }
+    }
+
+    private long getNumberOfOccupiedSpotsInLot(ParkingLot parkingLot) {
+        return allocationRepository.findByParkingLotId(parkingLot.getExternalId())
+                .stream().filter(allocation -> allocation.getStatus().equals(Status.ACTIVE)).count();
     }
 }
