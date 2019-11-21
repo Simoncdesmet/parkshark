@@ -83,7 +83,7 @@ class ParkingLotControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = {"classpath:insert-address.sql", "classpath:insert-parkinglot.sql"})
+    @Sql(scripts = {"classpath:clear-rows.sql", "classpath:insert-parkinglot.sql"})
     @DisplayName("when performing a get request on 'parking lot', you receive a list of parkingLotDtos")
     void getAll() {
         var parkingLotDtos = RestAssured
@@ -127,5 +127,62 @@ class ParkingLotControllerIntegrationTest {
                 .withName("name")
                 .withContactPersonDto(contactPersonDto)
                 .withMaxCapacity(1000);
+    }
+
+    @Test
+    @DisplayName("when requesting a parking lot by an existing id, 200 is returned along with the parking lot's DTO")
+    @Sql({"classpath:clear-rows.sql", "classpath:insert-parkinglot.sql"})
+    void getById() {
+        var returnedDto = RestAssured
+                .given()
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get(PATH + '/' + ID)
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .body()
+                .as(ParkingLotDto.class);
+        assertEquals(parkingLotDto, returnedDto);
+    }
+
+    @Test
+    @DisplayName("when requesting a parking lot by an inexisting id, 400 is returned along with a message")
+    @Sql({"classpath:clear-rows.sql", "classpath:insert-parkinglot.sql"})
+    void getByNonExistantId() {
+        var errorMessage = RestAssured
+                .given()
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get(PATH + '/' + 42)
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .extract()
+                .body()
+                .as(ErrorMessage.class);
+        assertEquals("parking lot does not exist", errorMessage.message);
+    }
+
+    @Test
+    @DisplayName("when requesting a parking lot by an invalid id, 400 is returned along with a message")
+    @Sql({"classpath:clear-rows.sql", "classpath:insert-parkinglot.sql"})
+    void getByInvalidId() {
+        var errorMessage = RestAssured
+                .given()
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get(PATH + "/invalid")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .extract()
+                .body()
+                .as(ErrorMessage.class);
+        assertTrue(errorMessage.message.contains("Failed to convert"));
     }
 }

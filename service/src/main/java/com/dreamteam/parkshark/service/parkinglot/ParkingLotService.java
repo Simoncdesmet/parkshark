@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -33,4 +34,8 @@ public class ParkingLotService {
                 () -> new IllegalArgumentException(("No parking lot found with this id!")));
 
     }
+    public Optional<ParkingLot> getById(long id) {
+        return parkingLotRepository.findById(id);
+    }
+
 }
