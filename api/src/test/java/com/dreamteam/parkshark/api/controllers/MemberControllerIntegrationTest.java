@@ -63,7 +63,6 @@ class MemberControllerIntegrationTest {
                 .body()
                 .as(ErrorMessage.class)
                 .message;
-        System.out.println(errorMessage);
         assertTrue(errorMessage.contains("first name required")
                 || errorMessage.contains("last name required"));
     }
