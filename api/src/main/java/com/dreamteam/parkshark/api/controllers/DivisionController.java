@@ -3,7 +3,6 @@ package com.dreamteam.parkshark.api.controllers;
 import com.dreamteam.parkshark.api.dtos.CreateDivisionDto;
 import com.dreamteam.parkshark.api.dtos.DivisionDto;
 import com.dreamteam.parkshark.api.mapper.DivisionDtoMapper;
-import com.dreamteam.parkshark.api.mapper.DivisionDtoMapper;
 import com.dreamteam.parkshark.domain.division.Division;
 import com.dreamteam.parkshark.service.division.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,13 @@ public class DivisionController {
     @ResponseStatus (HttpStatus.CREATED)
     public DivisionDto create(@RequestBody CreateDivisionDto createDivisionDto){
         return mapper.toDto(divisionService.createDivision(mapper.toDivision(createDivisionDto)));
+    }
+
+    @GetMapping("{id}")
+    public DivisionDto getById(@PathVariable long id) {
+        var division = divisionService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("division does not exist"));
+        return mapper.toDto(division);
     }
 
     @GetMapping(produces = "application/json")

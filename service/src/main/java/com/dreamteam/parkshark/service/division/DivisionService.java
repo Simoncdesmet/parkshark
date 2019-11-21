@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,5 +25,9 @@ public class DivisionService {
 
     public List<Division> getAll() {
         return divisionRepository.findAll();
+    }
+
+    public Optional<Division> getById(long id) {
+        return divisionRepository.findById(id);
     }
 }
