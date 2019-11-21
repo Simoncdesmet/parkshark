@@ -42,5 +42,4 @@ public class DivisionRepositoryTest {
         var retrievedDivision = divisionRepository.findAll().get(0);
         assertEquals(DIVISION, retrievedDivision);
     }
-
 }
