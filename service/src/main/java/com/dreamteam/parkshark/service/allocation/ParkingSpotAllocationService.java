@@ -2,7 +2,6 @@ package com.dreamteam.parkshark.service.allocation;
 
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
 import com.dreamteam.parkshark.repository.ParkingSpotAllocationRepository;
-import com.dreamteam.parkshark.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ public class ParkingSpotAllocationService {
     private final MemberValidator memberValidator;
     private final ParkingLotValidator parkingLotValidator;
 
-    public ParkingSpotAllocationService(ParkingSpotAllocationRepository allocationRepository, MemberService memberService, MemberValidator memberValidator, ParkingLotValidator parkingLotValidator) {
+    public ParkingSpotAllocationService(ParkingSpotAllocationRepository allocationRepository, MemberValidator memberValidator, ParkingLotValidator parkingLotValidator) {
         this.allocationRepository = allocationRepository;
         this.memberValidator = memberValidator;
         this.parkingLotValidator = parkingLotValidator;
