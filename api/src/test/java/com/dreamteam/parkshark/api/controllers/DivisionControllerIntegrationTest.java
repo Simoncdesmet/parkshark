@@ -1,30 +1,27 @@
 package com.dreamteam.parkshark.api.controllers;
 
 import com.dreamteam.parkshark.api.dtos.DivisionDto;
-import com.dreamteam.parkshark.service.division.DivisionService;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-
-import static com.dreamteam.parkshark.api.controllers.TestObjects.*;
+import static com.dreamteam.parkshark.api.controllers.TestObjects.createDivisionDto;
+import static com.dreamteam.parkshark.api.controllers.TestObjects.divisionDto;
 import static io.restassured.http.ContentType.JSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureTestDatabase
-public class DivisionControllerIntegrationTest {
+@Sql("classpath:clear-rows.sql")
+class DivisionControllerIntegrationTest {
     private static final String POST_PATH = DivisionController.PATH + "/create";
     @Value("${server.port}") private int port;
 
@@ -45,7 +42,6 @@ public class DivisionControllerIntegrationTest {
                 .as(DivisionDto.class);
 
         divisionDto.id = returnedDto.id;
-
         assertEquals(divisionDto, returnedDto);
     }
 
@@ -66,7 +62,6 @@ public class DivisionControllerIntegrationTest {
                 .jsonPath()
                 .getList(".", DivisionDto.class);
         assertTrue(divisionDtos.contains(divisionDto));
-
     }
 
     private Response requestToCreateMember() {

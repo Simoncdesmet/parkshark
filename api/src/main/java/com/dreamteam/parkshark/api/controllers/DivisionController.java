@@ -3,7 +3,6 @@ package com.dreamteam.parkshark.api.controllers;
 import com.dreamteam.parkshark.api.dtos.CreateDivisionDto;
 import com.dreamteam.parkshark.api.dtos.DivisionDto;
 import com.dreamteam.parkshark.api.mapper.DivisionDtoMapper;
-import com.dreamteam.parkshark.api.mapper.DivisionDtoMapper;
 import com.dreamteam.parkshark.domain.division.Division;
 import com.dreamteam.parkshark.service.division.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
