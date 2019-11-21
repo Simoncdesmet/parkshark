@@ -1,4 +1,4 @@
-package com.dreamteam.parkshark.service;
+package com.dreamteam.parkshark.service.member;
 
 import com.dreamteam.parkshark.domain.member.Member;
 import com.dreamteam.parkshark.repository.MemberRepository;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,4 +33,7 @@ public class MemberService {
        return repository.findAll();
     }
 
+    public Optional<Member> getById(long id) {
+        return repository.findById(id);
+    }
 }

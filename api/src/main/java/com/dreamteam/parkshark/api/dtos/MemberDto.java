@@ -1,7 +1,5 @@
 package com.dreamteam.parkshark.api.dtos;
 
-import com.dreamteam.parkshark.domain.member.LicencePlate;
-
 import java.time.LocalDate;
 import java.util.Objects;
 

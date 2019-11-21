@@ -63,7 +63,10 @@ create table division
     name          varchar(50),
     original_name varchar(50),
     director_name varchar(50),
-    constraint division primary key (id)
+    parent_division_id number,
+    constraint division primary key (id),
+    constraint division_parent_fk foreign key (parent_division_id)
+        references division (id)
 );
 create sequence division_seq start with 1 increment by 1;
 

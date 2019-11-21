@@ -5,13 +5,13 @@ import com.dreamteam.parkshark.domain.member.Email;
 import com.dreamteam.parkshark.domain.member.LicencePlate;
 import com.dreamteam.parkshark.domain.member.Member;
 import com.dreamteam.parkshark.repository.MemberRepository;
-import com.dreamteam.parkshark.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -43,6 +43,8 @@ class MemberServiceUnitTest {
                 .thenReturn(MEMBER);
         when(repository.findAll())
                 .thenReturn((List.of(MEMBER)));
+        when(repository.findById(MEMBER.getId()))
+                .thenReturn(Optional.of(MEMBER));
         service = new MemberService(repository);
     }
 
@@ -57,6 +59,13 @@ class MemberServiceUnitTest {
     @DisplayName("getting all the members returns a list including the expected member")
     void getAllMembers(){
         var retrievedMember = service.getAll().get(0);
+        assertEquals(MEMBER, retrievedMember);
+    }
+
+    @Test
+    @DisplayName("getting a member by id returns an optional with the expected member")
+    void getAMembers(){
+        var retrievedMember = service.getById(MEMBER.getId()).orElseThrow();
         assertEquals(MEMBER, retrievedMember);
     }
 

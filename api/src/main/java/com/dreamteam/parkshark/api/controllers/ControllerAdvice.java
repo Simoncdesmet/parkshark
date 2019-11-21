@@ -17,6 +17,7 @@ public class ControllerAdvice {
                            HttpServletResponse response)
             throws IOException {
         logger.warn(exception.getMessage());
+        logger.info(Arrays.toString(exception.getStackTrace()));
         response.sendError(
                 HttpServletResponse.SC_BAD_REQUEST,
                 exception.getMessage());

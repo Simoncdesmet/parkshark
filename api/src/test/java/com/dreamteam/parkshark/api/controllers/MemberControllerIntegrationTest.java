@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureTestDatabase
-@Sql(scripts = "classpath:clear-rows.sql")
 class MemberControllerIntegrationTest {
     private static final String POST_PATH = MemberController.PATH + "/register";
     @Value("${server.port}") private int port;
@@ -86,7 +85,7 @@ class MemberControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = { "classpath:insert-address.sql","classpath:insert-member.sql"})
+    @Sql(scripts = {"classpath:clear-rows.sql","classpath:insert-address.sql","classpath:insert-member.sql"})
     void getAllDtos(){
 
         var simplifiedMemberDto = RestAssured
@@ -106,6 +105,40 @@ class MemberControllerIntegrationTest {
         Assertions.assertThat(simplifiedMemberDto)
                 .contains(TestObjects.simplifiedMemberDto);
 
+    }
+
+    @Test
+    @DisplayName("when requesting a member by id, 201 is returned along with the memberDto")
+    @Sql(scripts = {"classpath:clear-rows.sql","classpath:insert-address.sql","classpath:insert-member.sql"})
+    void getById() {
+        var returnedDto = RestAssured.given()
+                .when()
+                    .port(port)
+                    .get(MemberController.PATH + '/' + ID)
+                .then()
+                    .assertThat()
+                        .statusCode(HttpStatus.SC_OK)
+                    .extract()
+                        .body()
+                        .as(MemberDto.class);
+        assertEquals(memberDto, returnedDto);
+    }
+
+    @Test
+    @DisplayName("when requesting a member by non existing id, 400 is returned along with a message")
+    @Sql(scripts = {"classpath:clear-rows.sql","classpath:insert-address.sql","classpath:insert-member.sql"})
+    void getByInvalidId() {
+        var errorMessage = RestAssured.given()
+                .when()
+                    .port(port)
+                    .get(MemberController.PATH + '/' + INVALID_ID)
+                .then()
+                    .assertThat()
+                        .statusCode(HttpStatus.SC_BAD_REQUEST)
+                    .extract()
+                        .body()
+                        .as(ErrorMessage.class);
+        assertEquals("no member with that id", errorMessage.message);
     }
 
     private Response requestToCreateMember() {
