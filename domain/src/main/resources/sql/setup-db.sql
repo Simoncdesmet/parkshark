@@ -11,6 +11,31 @@ create table address
 );
 create sequence address_seq start with 1 increment by 1;
 
+create table MEMBERSHIP_LEVEL
+(
+    ID                   NUMBER        not null,
+    NAME                 VARCHAR2(264) not null,
+    MONTHLY_COST         NUMBER(9, 2),
+    ALLOCATION_REDUCTION NUMBER(9, 2),
+    MAX_ALLOCATION_HOURS NUMBER
+)
+/
+
+create unique index MEMBERSHIP_LEVEL_ID_UINDEX
+    on MEMBERSHIP_LEVEL (ID)
+/
+
+create unique index MEMBERSHIP_LEVEL_NAME_UINDEX
+    on MEMBERSHIP_LEVEL (NAME)
+/
+
+alter table MEMBERSHIP_LEVEL
+    add constraint MEMBERSHIP_LEVEL_PK
+        primary key (ID)
+/
+
+
+
 create table MEMBER
 (
     ID                    NUMBER not null

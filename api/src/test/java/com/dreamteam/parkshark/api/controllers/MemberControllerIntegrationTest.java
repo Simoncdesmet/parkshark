@@ -2,6 +2,7 @@ package com.dreamteam.parkshark.api.controllers;
 
 import com.dreamteam.parkshark.api.dtos.SimplifiedMemberDto;
 import com.dreamteam.parkshark.api.dtos.MemberDto;
+import com.dreamteam.parkshark.domain.member.MembershipLevel;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -32,6 +33,7 @@ class MemberControllerIntegrationTest {
     }
 
     @Test
+    @Sql(scripts = "classpath:clear-rows.sql")
     @DisplayName("when creating a user with all necessary fields, 201 is returned along with the UserDto")
     void createSuccesfully() {
         var returnedDto = requestToCreateMember()
@@ -44,9 +46,11 @@ class MemberControllerIntegrationTest {
 
         memberDto.id = returnedDto.id;
         assertEquals(memberDto, returnedDto);
+        assertEquals(returnedDto.memberShipLevel, "Bronze");
     }
 
     @Test
+    @Sql(scripts = "classpath:clear-rows.sql")
     @DisplayName("when creating a user with fields missing, 400 is returned along with an informative message")
     void createIncomplete() {
         createMemberDto.firstName = null;
@@ -60,7 +64,7 @@ class MemberControllerIntegrationTest {
                 .body()
                 .as(ErrorMessage.class)
                 .message;
-
+        System.out.println(errorMessage);
         assertTrue(errorMessage.contains("first name required")
                 || errorMessage.contains("last name required"));
     }
@@ -84,6 +88,7 @@ class MemberControllerIntegrationTest {
     @Test
     @Sql(scripts = { "classpath:insert-address.sql","classpath:insert-member.sql"})
     void getAllDtos(){
+
         var simplifiedMemberDto = RestAssured
                 .given()
                 .contentType(JSON)

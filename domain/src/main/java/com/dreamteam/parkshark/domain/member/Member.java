@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static com.dreamteam.parkshark.domain.member.MembershipLevel.*;
 import static java.util.Objects.requireNonNull;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -23,8 +24,8 @@ public class Member {
     private Address address;
     private String telephoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBERSHIP_ID")
+    @Column(name = "MEMBERSHIP_LEVEL")
+    @Enumerated(EnumType.STRING)
     private MembershipLevel memberShipLevel;
 
     @Embedded
@@ -49,6 +50,7 @@ public class Member {
         licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
         memberShipLevel = builder.membershipLevel;
+        if (memberShipLevel == null) memberShipLevel = Bronze;
     }
 
     public long getId() {
@@ -83,7 +85,9 @@ public class Member {
         return registrationDate;
     }
 
-    public MembershipLevel getMemberShipLevel() {return memberShipLevel;}
+    public MembershipLevel getMemberShipLevel() {
+        return memberShipLevel;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -171,7 +175,6 @@ public class Member {
         }
 
         public Builder withMemberShipLevel(MembershipLevel val) {
-            if (val == null) val = MembershipLevel.BRONZE;
             membershipLevel = val;
             return this;
         }

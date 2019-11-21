@@ -14,7 +14,7 @@ values (999, 999, 'Name', 'UNDERGROUND', 1, 999, 999, 10,999);
 
 insert into MEMBER
 (ID, FIRST_NAME, LAST_NAME, ADDRESS_ID, TELEPHONE_NUMBER, EMAIL_ADDRESS, LICENCE_PLATE_NUMBER, LICENCE_PLATE_COUNTRY,
- REGISTRATION_DATE)
+ REGISTRATION_DATE,MEMBERSHIP_LEVEL)
 values (999,
         'Jos',
         'Verhoeven',
@@ -23,4 +23,4 @@ values (999,
         'josverhoeven@hotmail.com',
         '1-225-198',
         'Belgium',
-        '1992-01-09')
+        '1992-01-09','Bronze')

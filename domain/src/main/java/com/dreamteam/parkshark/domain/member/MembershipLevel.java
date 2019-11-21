@@ -5,33 +5,26 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "MEMBERSHIP_LEVEL")
 public enum MembershipLevel {
-    BRONZE(1),
-    SILVER(2),
-    GOLD(3);
+    Bronze("Bronze", 0.0, 0.0, 4.0),
+    Silver("Silver", 10.0, 0.2, 6.0),
+    Gold("Gold", 40.0, 0.3, 24.0);
 
-    @Id
-    @Column(name = "Id")
-    private int levelId;
-
-    @Column(name = "MONTHLY_COST")
+    private String name;
     private double monthlyCost;
-    @Column(name = "ALLOCATION_REDUCTION")
     private double allocationReduction;
-    @Column(name = "MAX_ALLOCATION_HOURS")
-    private int maxAllocationHours;
+    private double maxAllocationHours;
 
-    MembershipLevel() {
+
+    MembershipLevel(String name, double monthlyCost, double allocationReduction, double maxAllocationHours) {
+        this.name = name;
+        this.monthlyCost = monthlyCost;
+        this.allocationReduction = allocationReduction;
+        this.maxAllocationHours = maxAllocationHours;
     }
 
-    MembershipLevel(int levelId) {
-        this.levelId = levelId;
-    }
-
-    public int getId() {
-        return levelId;
+    public String getName() {
+        return name;
     }
 
     public double getMonthlyCost() {
@@ -42,7 +35,7 @@ public enum MembershipLevel {
         return allocationReduction;
     }
 
-    public int getMaxAllocationHours() {
+    public double getMaxAllocationHours() {
         return maxAllocationHours;
     }
 }

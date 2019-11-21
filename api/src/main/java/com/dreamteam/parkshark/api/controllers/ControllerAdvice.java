@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
     private final Logger logger = LoggerFactory.getLogger(ControllerAdvice.class);
 
-    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class})
+    @ExceptionHandler({IllegalArgumentException.class,NullPointerException.class})
     protected void handler(RuntimeException exception,
                            HttpServletResponse response)
             throws IOException {
