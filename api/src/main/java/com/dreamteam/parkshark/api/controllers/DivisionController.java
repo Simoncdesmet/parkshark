@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,10 @@ public class DivisionController {
 
     @PostMapping (path = "/create", produces = "application/json", consumes = "application/json")
     @ResponseStatus (HttpStatus.CREATED)
-    public DivisionDto create(@RequestBody CreateDivisionDto createDivisionDto){
-        return mapper.toDto(divisionService.createDivision(mapper.toDivision(createDivisionDto)));
+    public DivisionDto create(@RequestBody @Valid CreateDivisionDto createDivisionDto){
+        var divisionToCreate = mapper.toDivision(createDivisionDto);
+        var createdDivision = divisionService.createDivision(divisionToCreate);
+        return mapper.toDto(createdDivision);
     }
 
     @GetMapping("{id}")

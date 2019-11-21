@@ -75,11 +75,13 @@ public class TestObjects {
         createDivisionDto.name = DIVISION_NAME;
         createDivisionDto.originalName = DIVISION_ORIGINAL_NAME;
         createDivisionDto.directorName = DIRECTOR_NAME;
+        createDivisionDto.parentDivisionId = null;
 
         divisionDto.id = ID;
         divisionDto.name = DIVISION_NAME;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
+        divisionDto.parentDivisionId = null;
 
         contactPersonDto
                 .withAddress(addressDto)
