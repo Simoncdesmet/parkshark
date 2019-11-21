@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -19,12 +21,6 @@ class ParkingSpotAllocationServiceTest {
 
     @Autowired
     private ParkingSpotAllocationService allocationService;
-
-    @Autowired
-    private ParkingLotService parkingLotService;
-
-    @Autowired
-    private MemberService memberService;
 
     private ParkingSpotAllocation allocation;
 
@@ -42,21 +38,19 @@ class ParkingSpotAllocationServiceTest {
     @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithValidInformation_persistedObjectIsReturned() {
-        Assertions.assertEquals(allocation, allocationService.startParkingAllocation(allocation));
+        assertEquals(allocation, allocationService.startParkingAllocation(allocation));
     }
 
     @Sql(scripts = "classpath:delete-rows.sql")
     @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithWrongMemberId_throwIllegalArgumentException() {
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(
-                new ParkingSpotAllocation(
-                        998,
-                        "1-225-198",
-                        "999)"
-                )
-                )
+        assertThrows(IllegalArgumentException.class,
+                () -> allocationService.startParkingAllocation(
+                        new ParkingSpotAllocation(
+                                998,
+                                "1-225-198",
+                                "999"))
         );
     }
 
@@ -64,14 +58,25 @@ class ParkingSpotAllocationServiceTest {
     @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithWrongLicensePlateNumber_throwIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class,
+                () -> allocationService.startParkingAllocation(
+                        new ParkingSpotAllocation(
+                                999,
+                                "1-225-197",
+                                "999"))
+        );
+    }
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(
-                new ParkingSpotAllocation(
-                        999,
-                        "1-225-197",
-                        "999)"
-                )
-                )
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Test
+    void whenCreatingAllocationWithWrongLicensePlateNumberButMembershipLevelIsGold_noExceptionIsThrown() {
+        assertDoesNotThrow(
+                () -> allocationService.startParkingAllocation(
+                        new ParkingSpotAllocation(
+                                1000,
+                                "1-225-197",
+                                "999"))
         );
     }
 
@@ -80,13 +85,12 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenCreatingAllocationWithWrongParkingLotId_throwIllegalArgumentException() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(
-                new ParkingSpotAllocation(
-                        999,
-                        "1-225-198",
-                        "998)"
-                )
-                )
+        assertThrows(IllegalArgumentException.class,
+                () -> allocationService.startParkingAllocation(
+                        new ParkingSpotAllocation(
+                                999,
+                                "1-225-198",
+                                "998"))
         );
     }
 
@@ -95,7 +99,8 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenCreatingAllocationWithFullParkingLot_throwIllegalArgumentException() {
         allocationService.startParkingAllocation(allocation);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(allocation));
+        assertThrows(IllegalArgumentException.class,
+                () -> allocationService.startParkingAllocation(allocation));
     }
 
     @Sql(scripts = "classpath:delete-rows.sql")
@@ -103,8 +108,12 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenStoppingAllocationAsMember_allocationStatusIsPassive() {
         allocationService.startParkingAllocation(allocation);
-        Assertions.assertEquals(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
-                .getStatus(), Status.STOPPED);
+        assertEquals(
+                Status.STOPPED,
+                allocationService
+                        .stopParkingAllocation(allocation.getExternalId(), 999)
+                        .getStatus()
+        );
     }
 
 
@@ -113,7 +122,10 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenStoppingAllocationAsWrongMember_returnsException() {
         allocationService.startParkingAllocation(allocation);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.stopParkingAllocation(allocation.getExternalId(), 998));
+        assertThrows(IllegalArgumentException.class,
+                () -> allocationService
+                        .stopParkingAllocation(allocation.getExternalId(), 998)
+        );
     }
 
 
@@ -122,7 +134,9 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenStoppingAllocationWithInvalidId_returnsException() {
         allocationService.startParkingAllocation(allocation);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.stopParkingAllocation("998", 999));
+        assertThrows(IllegalArgumentException.class,
+                () -> allocationService
+                        .stopParkingAllocation("998", 999));
     }
 
 
@@ -131,8 +145,11 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenStoppingAllocation_returnsAllocationWithStopTimeStamp() {
         allocationService.startParkingAllocation(allocation);
-        Assertions.assertNotNull(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
-                .getStopTime());
+        assertNotNull(
+                allocationService
+                        .stopParkingAllocation(allocation.getExternalId(), 999)
+                        .getStopTime()
+        );
     }
 
 }

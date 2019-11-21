@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ParkingSpotAllocationService {
-
     private final ParkingSpotAllocationRepository allocationRepository;
     private final MemberValidator memberValidator;
     private final ParkingLotValidator parkingLotValidator;
