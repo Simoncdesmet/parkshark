@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @RestController
 @RequestMapping(path = "park")
@@ -45,10 +48,19 @@ public class AllocationController {
     public List<ParkingSpotAllocationDto> getAllAllocations(@RequestParam(name = "number", required = false) String number,
                                        @RequestParam(name = "order", required = false) String order,
                                        @RequestParam(name = "status", required = false) String status){
-        List<ParkingSpotAllocationDto> finalList = new ArrayList<>();
-        for (ParkingSpotAllocation spot : allocationService.getAllAllocations(number, order, status)){
-            finalList.add(allocationDtoMapper.toDto(spot));
-        }
-        return finalList;
+        return allocationService.getAllAllocations(number, order, status)
+                .stream()
+                .map(allocationDtoMapper::toDto)
+                .collect(toList());
+    }
+
+    @GetMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParkingSpotAllocationDto> getAllAllocationsByMember(@PathVariable("id") String id, @RequestParam(name = "status", required = false) String status){
+        return allocationService
+                .getAllocationsForAGivenMember(id, status)
+                .stream()
+                .map(allocationDtoMapper::toDto)
+                .collect(toList());
     }
 }

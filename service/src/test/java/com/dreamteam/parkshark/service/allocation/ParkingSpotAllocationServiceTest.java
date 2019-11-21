@@ -2,9 +2,8 @@ package com.dreamteam.parkshark.service.allocation;
 
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
 import com.dreamteam.parkshark.domain.allocation.Status;
-import com.dreamteam.parkshark.service.member.MemberService;
-import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -152,4 +151,11 @@ class ParkingSpotAllocationServiceTest {
         );
     }
 
+    @Test
+    @Sql(scripts = "classpath:delete-rows.sql")
+    void getAllAllocationsWithoutFiltersReturnsAllAllocations() {
+        assertEquals(0,
+                allocationService.getAllAllocations(null, null, null).size()
+        );
+    }
 }
