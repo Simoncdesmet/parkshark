@@ -30,10 +30,13 @@ public class TestObjects {
     public static final MemberDto memberDto = new MemberDto();
     public static final CreateMemberDto createMemberDto = new CreateMemberDto();
     public static final ContactPersonDto contactPersonDto = new ContactPersonDto();
+    public static final SimplifiedContactDto simplifiedContactPersonDto = new SimplifiedContactDto();
     public static final CreateParkingLotDto createParkingLotDto = new CreateParkingLotDto();
+    public static final SingleParkingLotDto singleParkingLotDto = new SingleParkingLotDto();
     public static final ParkingLotDto parkingLotDto = new ParkingLotDto();
     public static final DivisionDto divisionDto = new DivisionDto();
     public static final CreateDivisionDto createDivisionDto = new CreateDivisionDto();
+    public static final int INVALID_ID = 42;
 
     static {initialize();}
 
@@ -43,6 +46,7 @@ public class TestObjects {
         addressDto.streetName = STREET_NAME;
         addressDto.city = CITY;
 
+        memberDto.id = ID;
         memberDto.firstName = FIRST_NAME;
         memberDto.lastName = LAST_NAME;
         memberDto.telephoneNumber = PHONE_NUMBER;
@@ -73,8 +77,8 @@ public class TestObjects {
         createDivisionDto.directorName = DIRECTOR_NAME;
         createDivisionDto.parentDivisionId = null;
 
-        divisionDto.name = DIVISION_NAME;
         divisionDto.id = ID;
+        divisionDto.name = DIVISION_NAME;
         divisionDto.originalName = DIVISION_ORIGINAL_NAME;
         divisionDto.directorName = DIRECTOR_NAME;
         divisionDto.parentDivisionId = null;
@@ -94,13 +98,24 @@ public class TestObjects {
                 .withMaxCapacity(CAPACITY)
                 .withPricePerHour(PRICE);
 
-        parkingLotDto
+        singleParkingLotDto
                 .withExternalId(String.valueOf(ID))
                 .withAddressDto(addressDto)
                 .withCategory(CATEGORY)
                 .withContactPersonDto(contactPersonDto)
                 .withName(NAME)
                 .withMaxCapacity(CAPACITY)
-                .withPricePerHour(PRICE);
+                .withPricePerHour(PRICE)
+                .withDivisionId(divisionDto.id);
+
+        simplifiedContactPersonDto
+                .withEmail(EMAIL_ADDRESS)
+                .withPhoneNumber(PHONE_NUMBER);
+
+        parkingLotDto
+                .withExternalId(String.valueOf(ID))
+                .withName(NAME)
+                .withMaxCapacity(CAPACITY)
+                .withContactPersonDto(simplifiedContactPersonDto);
     }
 }

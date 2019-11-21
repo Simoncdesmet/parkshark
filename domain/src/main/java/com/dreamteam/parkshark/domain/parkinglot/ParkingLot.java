@@ -1,6 +1,7 @@
 package com.dreamteam.parkshark.domain.parkinglot;
 
 import com.dreamteam.parkshark.domain.Address;
+import com.dreamteam.parkshark.domain.division.Division;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -39,10 +40,13 @@ public class ParkingLot {
     @Column(name = "PRICE_PER_HOUR")
     private long pricePerHour;
 
+    @Column(name = "DIVISION_ID")
+    private long divisionId;
+
     public ParkingLot() {
     }
 
-    public ParkingLot(String name, Category category, int maxCapacity, ContactPerson contactPerson, Address address, long pricePerHour) {
+    public ParkingLot(String name, Category category, int maxCapacity, ContactPerson contactPerson, Address address, long pricePerHour, long divisionId) {
         this.externalId = UUID.randomUUID().toString();
         this.name = name;
         this.category = category;
@@ -50,6 +54,7 @@ public class ParkingLot {
         this.contactPerson = contactPerson;
         this.address = address;
         this.pricePerHour = pricePerHour;
+        this.divisionId = divisionId;
     }
 
     public String getName() {
@@ -80,6 +85,10 @@ public class ParkingLot {
         return externalId;
     }
 
+    public long getDivisionId() {
+        return divisionId;
+    }
+
     @Override
     public String toString() {
         return "ParkingLot{" +
@@ -91,6 +100,7 @@ public class ParkingLot {
                 ", contactPerson=" + contactPerson +
                 ", address=" + address +
                 ", pricePerHour=" + pricePerHour +
+                ", division=" + divisionId +
                 '}';
     }
 

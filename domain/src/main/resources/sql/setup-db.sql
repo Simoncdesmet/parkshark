@@ -72,7 +72,10 @@ references CONTACT_PERSON,
 ADDRESS_ID        NUMBER        not null
 constraint PARKING_ADDRESS_FK
 references ADDRESS,
-PRICE_PER_HOUR    NUMBER
+PRICE_PER_HOUR    NUMBER,
+DIVISION_ID       NUMBER        not null
+constraint PARKING_DIVISION_FK
+references DIVISION
 );
 create sequence PARKING_LOT_SEQ;
 
@@ -89,7 +92,6 @@ create table PARKING_SPOT_ALLOCATION
     START_TIME           DATE
 );
 create unique index ALLOCATION_EXTERNAL_ID_uindex
-    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID)
-/
+    on PARKING_SPOT_ALLOCATION (EXTERNAL_ID);
 create sequence ALLOCATION_SEQ;
 

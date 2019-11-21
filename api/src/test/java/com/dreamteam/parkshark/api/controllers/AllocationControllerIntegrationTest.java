@@ -2,6 +2,8 @@ package com.dreamteam.parkshark.api.controllers;
 
 import com.dreamteam.parkshark.api.dtos.CreateParkingSpotAllocationDto;
 import com.dreamteam.parkshark.api.dtos.ParkingSpotAllocationDto;
+import com.dreamteam.parkshark.api.dtos.StopParkingSpotAllocationDto;
+import com.dreamteam.parkshark.domain.allocation.Status;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
@@ -64,6 +66,8 @@ public class AllocationControllerIntegrationTest {
 
     @Test
     @DisplayName("when creating an allocation with unknown memberId, 400 is returned along with member not found message")
+    @Sql(scripts = "classpath:clear-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     void createWithUnknownMember() {
 
         CreateParkingSpotAllocationDto allocationWithUnknownMemberId = new CreateParkingSpotAllocationDto(
@@ -87,6 +91,60 @@ public class AllocationControllerIntegrationTest {
                         .body()
                         .asString();
 
-        Assertions.assertTrue(result.contains("No member found with this id!"));
+        assertTrue(result.contains("No member found with this id!"));
+    }
+
+
+    @Sql(scripts = "classpath:clear-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Sql(scripts = "classpath:insert-allocation.sql")
+    @Test
+    void whenStoppingAllocationWithCorrectInfo_returnsObjectWithStatusStoppedAndStopTime() {
+
+        StopParkingSpotAllocationDto dto = new StopParkingSpotAllocationDto(
+                "999", 999);
+
+        var returnedDto =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .body(dto)
+                        .when()
+                        .port(port)
+                        .delete(PATH)
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.SC_OK)
+                        .extract()
+                        .body()
+                        .as(ParkingSpotAllocationDto.class);
+
+        assertNotNull(returnedDto.getStopTime());
+        assertEquals(returnedDto.getStatus(), Status.STOPPED);
+    }
+
+    @Sql(scripts = "classpath:clear-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Sql(scripts = "classpath:insert-allocation.sql")
+    @Test
+    void whenStoppingAllocationWithIncorrectInfo_returns400() {
+
+        StopParkingSpotAllocationDto dto = new StopParkingSpotAllocationDto(
+                "999", 998);
+
+        var returnedDto =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .body(dto)
+                        .when()
+                        .port(port)
+                        .delete(PATH)
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.SC_BAD_REQUEST);
+
     }
 }

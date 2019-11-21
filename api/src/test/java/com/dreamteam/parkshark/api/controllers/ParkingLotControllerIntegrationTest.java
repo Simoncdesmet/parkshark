@@ -1,9 +1,6 @@
 package com.dreamteam.parkshark.api.controllers;
 
-import com.dreamteam.parkshark.api.dtos.AddressDto;
-import com.dreamteam.parkshark.api.dtos.ContactPersonDto;
-import com.dreamteam.parkshark.api.dtos.CreateParkingLotDto;
-import com.dreamteam.parkshark.api.dtos.ParkingLotDto;
+import com.dreamteam.parkshark.api.dtos.*;
 import com.dreamteam.parkshark.api.mapper.ParkingLotDtoMapper;
 import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.parkinglot.Category;
@@ -55,7 +52,7 @@ class ParkingLotControllerIntegrationTest {
                 .statusCode(HttpStatus.SC_CREATED)
                 .extract()
                 .body()
-                .as(ParkingLotDto.class);
+                .as(SingleParkingLotDto.class);
 
         assertEquals(createParkingLotDto.getName(), returnedDto.getName());
         assertEquals(createParkingLotDto.getAddressDto(), returnedDto.getAddressDto());
@@ -120,20 +117,15 @@ class ParkingLotControllerIntegrationTest {
                 .withPostalCode("3000")
                 .withStreetName("Straat")
                 .withStreetNumber("3A");
-        ContactPersonDto contactPersonDto = new ContactPersonDto()
-                .withFirstName("Jos")
-                .withLastName("Verhoeven")
+        SimplifiedContactDto contactPersonDto = new SimplifiedContactDto()
+                .withMobilePhoneNumber("0473689541")
                 .withPhoneNumber("0516846513")
-                .withEmail("simoncdesmet@mgail.com")
-                .withAddress(addressDto);
+                .withEmail("simoncdesmet@mgail.com");
 
         return new ParkingLotDto()
                 .withExternalId("999")
-                .withName("Name")
-                .withCategory("UNDERGROUND")
+                .withName("name")
                 .withContactPersonDto(contactPersonDto)
-                .withAddressDto(addressDto)
-                .withMaxCapacity(1000)
-                .withPricePerHour(10);
+                .withMaxCapacity(1000);
     }
 }

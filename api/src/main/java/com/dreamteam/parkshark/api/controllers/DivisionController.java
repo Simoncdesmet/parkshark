@@ -34,6 +34,13 @@ public class DivisionController {
         return mapper.toDto(createdDivision);
     }
 
+    @GetMapping("{id}")
+    public DivisionDto getById(@PathVariable long id) {
+        var division = divisionService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("division does not exist"));
+        return mapper.toDto(division);
+    }
+
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<DivisionDto> getAll(){

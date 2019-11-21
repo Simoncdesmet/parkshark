@@ -8,6 +8,7 @@ public class CreateParkingLotDto {
     private ContactPersonDto contactPersonDto;
     private AddressDto addressDto;
     private String category;
+    private long divisionId;
 
 
 
@@ -42,6 +43,11 @@ public class CreateParkingLotDto {
         return this;
     }
 
+    public CreateParkingLotDto withDivisionId(long divisionId){
+        this.divisionId = divisionId;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -65,4 +71,6 @@ public class CreateParkingLotDto {
     public String getCategory() {
         return category;
     }
+
+    public long getDivisionId(){ return divisionId; }
 }

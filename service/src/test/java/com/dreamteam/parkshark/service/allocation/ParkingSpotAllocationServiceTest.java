@@ -1,14 +1,8 @@
 package com.dreamteam.parkshark.service.allocation;
 
-import com.dreamteam.parkshark.domain.Address;
 import com.dreamteam.parkshark.domain.allocation.ParkingSpotAllocation;
-import com.dreamteam.parkshark.domain.member.Email;
-import com.dreamteam.parkshark.domain.member.LicencePlate;
-import com.dreamteam.parkshark.domain.member.Member;
-import com.dreamteam.parkshark.domain.parkinglot.Category;
-import com.dreamteam.parkshark.domain.parkinglot.ContactPerson;
-import com.dreamteam.parkshark.domain.parkinglot.ParkingLot;
-import com.dreamteam.parkshark.service.MemberService;
+import com.dreamteam.parkshark.domain.allocation.Status;
+import com.dreamteam.parkshark.service.member.MemberService;
 import com.dreamteam.parkshark.service.parkinglot.ParkingLotService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,17 +38,19 @@ class ParkingSpotAllocationServiceTest {
     }
 
 
+    @Sql(scripts = "classpath:delete-rows.sql")
     @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
-
     @Test
     void whenCreatingAllocationWithValidInformation_persistedObjectIsReturned() {
-        Assertions.assertEquals(allocation, allocationService.createAllocation(allocation));
+        Assertions.assertEquals(allocation, allocationService.startParkingAllocation(allocation));
     }
 
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithWrongMemberId_throwIllegalArgumentException() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.createAllocation(
+        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(
                 new ParkingSpotAllocation(
                         998,
                         "1-225-198",
@@ -64,10 +60,12 @@ class ParkingSpotAllocationServiceTest {
         );
     }
 
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithWrongLicensePlateNumber_throwIllegalArgumentException() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.createAllocation(
+        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(
                 new ParkingSpotAllocation(
                         999,
                         "1-225-197",
@@ -77,11 +75,12 @@ class ParkingSpotAllocationServiceTest {
         );
     }
 
-
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
-    void whenCreatingAllocationWithWrongParkingLotIdr_throwIllegalArgumentException() {
+    void whenCreatingAllocationWithWrongParkingLotId_throwIllegalArgumentException() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.createAllocation(
+        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(
                 new ParkingSpotAllocation(
                         999,
                         "1-225-198",
@@ -91,10 +90,48 @@ class ParkingSpotAllocationServiceTest {
         );
     }
 
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithFullParkingLot_throwIllegalArgumentException() {
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.createAllocation(allocation));
+        allocationService.startParkingAllocation(allocation);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.startParkingAllocation(allocation));
     }
 
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Test
+    void whenStoppingAllocationAsMember_allocationStatusIsPassive() {
+        allocationService.startParkingAllocation(allocation);
+        Assertions.assertEquals(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
+                .getStatus(), Status.STOPPED);
+    }
+
+
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Test
+    void whenStoppingAllocationAsWrongMember_returnsException() {
+        allocationService.startParkingAllocation(allocation);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.stopParkingAllocation(allocation.getExternalId(), 998));
+    }
+
+
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Test
+    void whenStoppingAllocationWithInvalidId_returnsException() {
+        allocationService.startParkingAllocation(allocation);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> allocationService.stopParkingAllocation("998", 999));
+    }
+
+
+    @Sql(scripts = "classpath:delete-rows.sql")
+    @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
+    @Test
+    void whenStoppingAllocation_returnsAllocationWithStopTimeStamp() {
+        allocationService.startParkingAllocation(allocation);
+        Assertions.assertNotNull(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
+                .getStopTime());
+    }
 }
