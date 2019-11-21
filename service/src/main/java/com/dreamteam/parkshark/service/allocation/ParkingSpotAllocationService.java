@@ -6,15 +6,15 @@ import com.dreamteam.parkshark.repository.ParkingSpotAllocationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 @Transactional
 public class ParkingSpotAllocationService {
-
+    private static final String NUMBER_REGEX = "^\\d+$";
     private final ParkingSpotAllocationRepository allocationRepository;
     private final MemberValidator memberValidator;
     private final ParkingLotValidator parkingLotValidator;
@@ -47,62 +47,72 @@ public class ParkingSpotAllocationService {
     public List<ParkingSpotAllocation> getAllAllocations(String number, String order, String status) {
         var allSpots = allocationRepository.findAll();
         Collections.sort(allSpots);
-        if (number != null){
+        if (number != null) {
             allSpots = getNumberOfAllocationsGivenByParam(allSpots, number);
         }
-        if (status != null){
-            allSpots = getAllocationsFilteredByStatus(allSpots, status);
+        if (status != null) {
+            allSpots = filterAllocationsByStatus(allSpots, status);
         }
-        if (order != null){
+        if (order != null) {
             allocationsSortedByParam(allSpots, order);
         }
         return allSpots;
     }
 
-    private List<ParkingSpotAllocation> getNumberOfAllocationsGivenByParam(List<ParkingSpotAllocation> allocations, String number){
+    private List<ParkingSpotAllocation> getNumberOfAllocationsGivenByParam(List<ParkingSpotAllocation> allocations, String number) {
         int finalNumber = 0;
         try {
             finalNumber = Integer.parseInt(number);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        if (finalNumber > 0){
-            return allocations.stream().limit(finalNumber).collect(Collectors.toList());
-        }
-        else {
+        if (finalNumber > 0) {
+            return allocations.stream().limit(finalNumber).collect(toList());
+        } else {
             return allocations;
         }
     }
 
-    private void allocationsSortedByParam(List<ParkingSpotAllocation> allocations, String order){
-        if (order.toLowerCase().equals("desc")){
+    private void allocationsSortedByParam(List<ParkingSpotAllocation> allocations, String order) {
+        if (order.toLowerCase().equals("desc")) {
             Collections.reverse(allocations);
-        }
-        else if (order.toLowerCase().equals("asc")){
+        } else if (order.toLowerCase().equals("asc")) {
             Collections.sort(allocations);
         }
     }
 
-    private List<ParkingSpotAllocation> getAllocationsFilteredByStatus(List<ParkingSpotAllocation> allocations, String status){
-        if (status.toLowerCase().equals("stopped") || status.toLowerCase().equals("active")){
-            return allocations.stream().filter(a -> a.getStatus().equals(Status.valueOf(status.toUpperCase()))).collect(Collectors.toList());
+    private List<ParkingSpotAllocation> filterAllocationsByStatus(List<ParkingSpotAllocation> allocations, String status) {
+        if (isValidStatus(status)) {
+            return allocations.stream()
+                    .filter(a -> a.getStatus().equals(Status.valueOf(status.toUpperCase())))
+                    .collect(toList());
         }
         return allocations;
     }
 
-    public List<ParkingSpotAllocation> getAllocationsForAGivenMember(String membId, String status){
-        var allParkings = allocationRepository.findAll();
-        List<ParkingSpotAllocation> parkingsForAMember = new ArrayList<>();
-        try{
-            int memberId = Integer.parseInt(membId);
-            parkingsForAMember = allParkings.stream().filter(a -> a.getMemberId() == memberId).collect(Collectors.toList());
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        if (parkingsForAMember.size() != 0 && status != null){
-            parkingsForAMember = getAllocationsFilteredByStatus(parkingsForAMember, status);
-        }
-        return parkingsForAMember;
+    private boolean isValidStatus(String status) {
+        return status != null
+                && (status.toLowerCase().equals("stopped") || status.toLowerCase().equals("active"));
+    }
+
+    public List<ParkingSpotAllocation> getAllocationsForAGivenMember(String memberId, String status) {
+        return allocationRepository.findAll()
+                .stream()
+                .filter(a -> isAllocationOfMember(a, memberId))
+                .filter(a -> isAllocationOfStatus(a, status))
+                .collect(toList());
+    }
+
+    private boolean isAllocationOfStatus(ParkingSpotAllocation allocation, String status) {
+        return isValidStatus(status)
+                && allocation.getStatus().equals(Status.valueOf(status.toUpperCase()));
+    }
+
+    private boolean isAllocationOfMember(ParkingSpotAllocation allocation, String memberId) {
+        return memberId != null
+                && memberId.matches(NUMBER_REGEX)
+                && allocation.getMemberId() == Integer.parseInt(memberId);
+
     }
 }

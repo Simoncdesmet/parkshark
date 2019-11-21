@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -19,12 +21,6 @@ class ParkingSpotAllocationServiceTest {
 
     @Autowired
     private ParkingSpotAllocationService allocationService;
-
-    @Autowired
-    private ParkingLotService parkingLotService;
-
-    @Autowired
-    private MemberService memberService;
 
     private ParkingSpotAllocation allocation;
 
@@ -42,7 +38,7 @@ class ParkingSpotAllocationServiceTest {
     @Sql(scripts = "classpath:insert-parkinglot-and-member.sql")
     @Test
     void whenCreatingAllocationWithValidInformation_persistedObjectIsReturned() {
-        Assertions.assertEquals(allocation, allocationService.startParkingAllocation(allocation));
+        assertEquals(allocation, allocationService.startParkingAllocation(allocation));
     }
 
     @Sql(scripts = "classpath:delete-rows.sql")
@@ -103,7 +99,7 @@ class ParkingSpotAllocationServiceTest {
     @Test
     void whenStoppingAllocationAsMember_allocationStatusIsPassive() {
         allocationService.startParkingAllocation(allocation);
-        Assertions.assertEquals(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
+        assertEquals(allocationService.stopParkingAllocation(allocation.getExternalId(), 999)
                 .getStatus(), Status.STOPPED);
     }
 
@@ -135,4 +131,11 @@ class ParkingSpotAllocationServiceTest {
                 .getStopTime());
     }
 
+    @Test
+    @Sql(scripts = "classpath:delete-rows.sql")
+    void getAllAllocationsWithoutFiltersReturnsAllAllocations() {
+        assertEquals(0,
+                allocationService.getAllAllocations(null, null, null).size()
+        );
+    }
 }
