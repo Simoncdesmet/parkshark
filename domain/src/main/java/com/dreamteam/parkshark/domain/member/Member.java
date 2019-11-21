@@ -25,7 +25,7 @@ public class Member {
 
     @ManyToOne
     @JoinColumn(name = "MEMBERSHIP_ID")
-    private MemberShip memberShip;
+    private MembershipLevel memberShipLevel;
 
     @Embedded
     @AttributeOverride(name = "address", column = @Column(name = "EMAIL_ADDRESS"))
@@ -48,6 +48,7 @@ public class Member {
         emailAddress = requireNonNull(builder.emailAddress, "email address required");
         licencePlate = requireNonNull(builder.licencePlate, "licence plate required");
         registrationDate = LocalDate.now();
+        memberShipLevel = builder.membershipLevel;
     }
 
     public long getId() {
@@ -81,6 +82,8 @@ public class Member {
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
+
+    public MembershipLevel getMemberShipLevel() {return memberShipLevel;}
 
     @Override
     public boolean equals(Object o) {
@@ -127,6 +130,7 @@ public class Member {
         private String telephoneNumber;
         private Email emailAddress;
         private LicencePlate licencePlate;
+        private MembershipLevel membershipLevel;
 
         private Builder() {
         }
@@ -163,6 +167,12 @@ public class Member {
 
         public Builder withLicencePlate(LicencePlate val) {
             licencePlate = val;
+            return this;
+        }
+
+        public Builder withMemberShipLevel(MembershipLevel val) {
+            if (val == null) val = MembershipLevel.BRONZE;
+            membershipLevel = val;
             return this;
         }
 
