@@ -25,7 +25,7 @@ public class AllocationControllerIntegrationTest {
 
     private static final String PATH = "/park";
     @Value("${server.port}")
-    private int port;
+    private int port = 8124;
 
     private CreateParkingSpotAllocationDto createAllocationDto;
 
