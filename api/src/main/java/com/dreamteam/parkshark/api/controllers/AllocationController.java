@@ -43,7 +43,7 @@ public class AllocationController {
                         stopAllocationDto.getMemberId()));
     }
 
-    @GetMapping(consumes = "application/json", produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<ParkingSpotAllocationDto> getAllAllocations(@RequestParam(name = "number", required = false) String number,
                                        @RequestParam(name = "order", required = false) String order,
@@ -54,7 +54,7 @@ public class AllocationController {
                 .collect(toList());
     }
 
-    @GetMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<ParkingSpotAllocationDto> getAllAllocationsByMember(@PathVariable("id") String id, @RequestParam(name = "status", required = false) String status){
         return allocationService
